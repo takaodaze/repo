@@ -11,7 +11,7 @@ export const SubjectList = (p: P) => {
 
     return (
         <div
-            className={`flex flex-col gap-2 rounded-md border-2 bg-gray-100 p-3`}
+            className={`flex flex-col gap-2 rounded-md border-2 bg-slate-50 p-3`}
         >
             {subjectList.map((s) => (
                 <SubjectCard

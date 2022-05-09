@@ -1,131 +1,70 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEventHandler } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
-
-type StudyDuration = {
-    hour: number;
-    minute: number;
-};
-
-const fillZeroTwoNumber = (n: number) => (n < 10 ? `0${n}` : n);
+import { fillZeroTwoNumber } from "../util/StudyDuration";
+import { useStudyDurationInput } from "./hooks/useStudyDurationInput";
 
 export const StudyDurationInput = () => {
-    const [studyDuration, setStudyDuration] = useState<StudyDuration>({
-        hour: 0,
-        minute: 0,
-    });
-
-    const handleChange =
-        (type: "hour" | "minute") => (e: ChangeEvent<HTMLInputElement>) => {
-            const value = e.target.value;
-
-            if (value.length === 0) {
-                if (type === "hour") {
-                    setStudyDuration((prev) => ({ ...prev, hour: 0 }));
-                } else if (type === "minute") {
-                    setStudyDuration((prev) => ({ ...prev, minute: 0 }));
-                }
-
-                return;
-            }
-
-            const maybeInt = parseInt(value);
-            if (isNaN(maybeInt)) {
-                return;
-            }
-            if (maybeInt < 0 || 60 < maybeInt) {
-                return;
-            }
-
-            if (type === "hour") {
-                setStudyDuration((prev) => ({ ...prev, hour: maybeInt }));
-            } else if (type === "minute") {
-                setStudyDuration((prev) => ({ ...prev, minute: maybeInt }));
-            }
-        };
-
-    const increment = (type: "hour" | "minute") => {
-        if (type === "hour") {
-            setStudyDuration((prev) => ({ ...prev, hour: prev.hour + 1 }));
-        } else if (type === "minute") {
-            setStudyDuration((prev) => {
-                const step = 15;
-                const nextMinute = step + prev.minute;
-                if (nextMinute >= 60) {
-                    return { hour: prev.hour + 1, minute: nextMinute - 60 };
-                } else {
-                    return { ...prev, minute: nextMinute };
-                }
-            });
-        }
-    };
-
-    const decrement = (type: "hour" | "minute") => {
-        if (type === "hour") {
-            setStudyDuration((prev) => {
-                const nextHour = prev.hour - 1;
-                return { ...prev, hour: nextHour < 0 ? 0 : nextHour };
-            });
-        } else if (type === "minute") {
-            setStudyDuration((prev) => {
-                const step = -15;
-                const nextMinute = step + prev.minute;
-                if (nextMinute < 0) {
-                    const nextHour = prev.hour - 1;
-                    if (nextHour < 0) {
-                        return { hour: 0, minute: 0 };
-                    }
-                    return { hour: nextHour, minute: nextMinute + 60 };
-                } else {
-                    return { ...prev, minute: nextMinute };
-                }
-            });
-        }
-    };
+    const { studyDuration, handleChange, increment, decrement } =
+        useStudyDurationInput();
 
     return (
         <div className="flex h-full space-x-2">
             <div className="flex">
-                <button
-                    onClick={() => increment("hour")}
-                    className="h-full rounded-l-lg border-2 border-r-0 px-2"
-                >
-                    <MdAdd />
-                </button>
-                <input
-                    className={TIME_INPUT_CLASS_NAME}
+                <IncrementalButton onClick={() => increment("hour")} />
+                <TimeInput
                     value={studyDuration.hour}
+                    type="h"
                     onChange={handleChange("hour")}
                 />
-                <button
-                    onClick={() => decrement("hour")}
-                    className="h-full rounded-r-lg border-2 border-l-0 px-2"
-                >
-                    <MdRemove />
-                </button>
+                <DecrementalButton onClick={() => decrement("hour")} />
             </div>
 
             <div className="flex">
-                <button
-                    onClick={() => increment("minute")}
-                    className="h-full rounded-l-lg border-2 border-r-0 px-2"
-                >
-                    <MdAdd />
-                </button>
-                <input
-                    className={TIME_INPUT_CLASS_NAME}
+                <IncrementalButton onClick={() => increment("minute")} />
+                <TimeInput
+                    value={studyDuration.minute}
+                    type="m"
                     onChange={handleChange("minute")}
-                    value={fillZeroTwoNumber(studyDuration.minute)}
                 />
-                <button
-                    onClick={() => decrement("minute")}
-                    className="h-full rounded-r-lg border-2 border-l-0 px-2"
-                >
-                    <MdRemove />
-                </button>
+                <DecrementalButton onClick={() => decrement("minute")} />
             </div>
         </div>
     );
 };
 
-const TIME_INPUT_CLASS_NAME =
-    "w-12 h-full outline-none border-2 text-center p-3";
+const IncrementalButton = ({ onClick }: { onClick: () => void }) => (
+    <button
+        onClick={onClick}
+        className="h-full rounded-l-lg border-2 border-r-0 px-0.5"
+    >
+        <MdAdd />
+    </button>
+);
+
+const DecrementalButton = ({ onClick }: { onClick: () => void }) => (
+    <button
+        onClick={onClick}
+        className="h-full rounded-r-lg border-2 border-l-0 px-0.5"
+    >
+        <MdRemove />
+    </button>
+);
+
+const TimeInput = ({
+    onChange,
+    value,
+    type,
+}: {
+    onChange: ChangeEventHandler<HTMLInputElement>;
+    value: number;
+    type: "h" | "m";
+}) => (
+    <div className="flex items-center border-2 pl-1 pr-3">
+        <input
+            className="h-full w-6 text-right outline-none"
+            onChange={onChange}
+            value={type === "m" ? fillZeroTwoNumber(value) : value}
+        />
+        <div className="ml-1">{type}</div>
+    </div>
+);
