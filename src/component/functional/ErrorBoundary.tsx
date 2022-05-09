@@ -37,7 +37,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
         return hasError ? (
             <div className="p-3">
                 <div className="flex items-center gap-2 rounded-xl border-2 border-red-800 bg-red-200 py-4 px-5">
-                    <MdErrorOutline className="text-red-800" />
+                    <MdErrorOutline size={20} className="text-red-800" />
                     <div className="font-bold text-red-800">
                         エラーが発生しました: {error?.message}
                     </div>
