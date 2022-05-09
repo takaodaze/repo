@@ -1,5 +1,5 @@
 import { ErrorBoundary } from "./component/functional/ErrorBoundary";
-import LearningInput from "./component/LearningInput";
+import { LearningInput } from "./component/LearningInput";
 
 export const App = () => {
     return (
