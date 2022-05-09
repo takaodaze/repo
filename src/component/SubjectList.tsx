@@ -1,18 +1,24 @@
-import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { subjectListState } from "../store/subject";
-import { ColorCode } from "../util/ColorCode";
+import { Subject, subjectListState } from "../store/subject";
 import { SubjectCard } from "./SubjectCard";
 
-export const SubjectList = () => {
+type P = {
+    onClickCard: (sub: Subject) => () => void;
+};
+
+export const SubjectList = (p: P) => {
     const [subjectList] = useRecoilState(subjectListState);
-    useEffect(() => {
-        new ColorCode("aaa");
-    }, []);
+
     return (
-        <div>
+        <div
+            className={`flex flex-col gap-2 rounded-md border-2 bg-gray-100 p-3`}
+        >
             {subjectList.map((s) => (
-                <SubjectCard key={`subject_${s.id}`} subject={s} />
+                <SubjectCard
+                    key={`subject_${s.id}`}
+                    onClick={p.onClickCard(s)}
+                    subject={s}
+                />
             ))}
         </div>
     );
