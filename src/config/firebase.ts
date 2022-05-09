@@ -25,7 +25,7 @@ const firebaseConfig = {
 class FirebaseClient {
     private app;
     private analytics;
-    private auth;
+    auth;
     private googleAuthProvider;
 
     constructor() {
