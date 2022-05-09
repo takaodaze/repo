@@ -11,7 +11,6 @@ export default function LearningInput() {
                 placeholder="学習内容やメモしたいこと"
             />
             <StudyDurationInput />
-            <div className="w-2" />
             <button className="h-full rounded-lg bg-green-600 p-3">
                 <MdSend className="text-2xl text-white" />
             </button>
