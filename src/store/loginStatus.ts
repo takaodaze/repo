@@ -1,7 +1,10 @@
 import { atom } from "recoil";
+import { Subject } from "./subject";
 
-type User = {
+export type User = {
     uid: string;
+    subjectList: Subject[];
+    workRecordList: any[];
 };
 
 type LoginStatus = {

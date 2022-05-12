@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { firebaseClient } from "../../config/firebase";
+import { firestoreClient } from "../../db/FireStoreClient";
 import { loadingState } from "../../store/loading";
 import { loginStatusState } from "../../store/loginStatus";
 
@@ -15,15 +16,23 @@ export const useInitLogin = () => {
 
     useEffect(() => {
         firebaseClient.auth.onAuthStateChanged(
-            (e) => {
+            async (e) => {
                 try {
                     setLoadingState({
                         active: true,
                         message: "Loading...",
                     });
-                    if (e?.uid != null) {
-                        setLoginState({ isLogin: true, user: { uid: e.uid } });
-                    }
+                    if (e?.uid == null) return;
+
+                    // --- ログイン後の処理 ---
+                    // レコードがみつからない場合は、新しく作る
+                    await firestoreClient.ifNotExistsCreateNewUser(e.uid);
+                    const userData = await firestoreClient.getUserData(e.uid);
+
+                    setLoginState({
+                        isLogin: true,
+                        user: userData,
+                    });
                 } finally {
                     setLoadingState({ active: false, message: "" });
                 }
