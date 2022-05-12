@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { App } from "./App";
+import { RecoilDebugObserver } from "./component/functional/RecoilDebugObserver";
+import { LoadingScreen } from "./component/LoadingScreen";
 import "./index.css";
 
 const rootEle = document.getElementById("root");
@@ -14,6 +16,8 @@ ReactDOM.createRoot(rootEle).render(
     <React.StrictMode>
         <BrowserRouter>
             <RecoilRoot>
+                {import.meta.env.DEV && <RecoilDebugObserver />}
+                <LoadingScreen />
                 <App />
             </RecoilRoot>
         </BrowserRouter>

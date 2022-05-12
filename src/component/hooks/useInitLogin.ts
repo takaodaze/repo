@@ -6,8 +6,12 @@ import { loginStatusState } from "../../store/loginStatus";
 
 export const useInitLogin = () => {
     // 自動ログインに使おう
-    const setLoadingState = useRecoilState(loadingState)[1];
+    const [, setLoadingState] = useRecoilState(loadingState);
     const [loginState, setLoginState] = useRecoilState(loginStatusState);
+
+    useEffect(() => {
+        setLoadingState({ active: true, message: "Loading..." });
+    }, [setLoadingState]);
 
     useEffect(() => {
         firebaseClient.auth.onAuthStateChanged(

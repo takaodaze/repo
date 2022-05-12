@@ -1,16 +1,16 @@
 import { ErrorBoundary } from "./component/functional/ErrorBoundary";
-import { LearningInput } from "./component/LearningInput";
-import { Loading } from "./component/Loading";
 import { useInitLogin } from "./component/hooks/useInitLogin";
-import { LoginModal } from "./component/LoginModal";
+import { LearningInput } from "./component/LearningInput";
+import { LoginScreen } from "./component/LoginScreen";
 
 export const App = () => {
-    useInitLogin();
+    const { loginState } = useInitLogin();
+
+    if (!loginState.isLogin) return <LoginScreen />;
+
     return (
-        <div className="h-screen w-full">
+        <div className="h-screen w-screen">
             <ErrorBoundary>
-                <Loading />
-                <LoginModal />
                 <div className="flex h-full flex-col justify-end p-3">
                     <LearningInput />
                 </div>
