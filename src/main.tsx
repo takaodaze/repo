@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { App } from "./App";
 import { RecoilDebugObserver } from "./component/functional/RecoilDebugObserver";
@@ -14,12 +13,10 @@ if (rootEle == null) {
 
 ReactDOM.createRoot(rootEle).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <RecoilRoot>
-                {import.meta.env.DEV && <RecoilDebugObserver />}
-                <LoadingScreen />
-                <App />
-            </RecoilRoot>
-        </BrowserRouter>
+        <RecoilRoot>
+            {import.meta.env.DEV && <RecoilDebugObserver />}
+            <LoadingScreen />
+            <App />
+        </RecoilRoot>
     </React.StrictMode>
 );
