@@ -4,7 +4,6 @@ import { Subject } from "./subject";
 export type User = {
     uid: string;
     subjectList: Subject[];
-    workRecordList: any[];
 };
 
 type LoginStatus = {

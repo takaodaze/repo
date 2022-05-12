@@ -2,16 +2,11 @@ import { ErrorBoundary } from "./component/functional/ErrorBoundary";
 import { useInitLogin } from "./component/hooks/useInitLogin";
 import { LearningInput } from "./component/LearningInput";
 import { LoginScreen } from "./component/LoginScreen";
-import { firestoreClient } from "./db/FireStoreClient";
 
 export const App = () => {
     const { loginState } = useInitLogin();
 
     if (!loginState.isLogin) return <LoginScreen />;
-
-    if (loginState.user != null) {
-        firestoreClient.saveUserDate({ ...loginState.user });
-    }
 
     return (
         <div className="h-screen w-screen">
