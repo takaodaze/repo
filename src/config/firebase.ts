@@ -56,13 +56,8 @@ class FirebaseClient {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             if (credential == null) throw new Error("credential not found");
 
-            const token = credential.accessToken;
-            const user = result.user;
-
-            console.log("token:", token);
-            console.log("user:", user);
-
-            await firestoreClient.ifNotExistsCreateNewUser(user.uid);
+            const { uid } = result.user;
+            await firestoreClient.ifNotExistsCreateNewUser(uid);
         } catch (error) {
             if (error instanceof FirebaseError) {
                 const credential =

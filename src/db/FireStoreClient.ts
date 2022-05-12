@@ -2,6 +2,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { firebaseClient } from "../config/firebase";
 import { User } from "../store/loginStatus";
 import { Subject } from "../store/subject";
+import { ColorCode } from "../util/ColorCode";
 
 const TABLES = {
     USER: "user",
@@ -30,6 +31,18 @@ const convUserDoc = (user: User): UserDoc => {
     return doc;
 };
 
+const convUser = (userDoc: UserDoc): User => {
+    const user: User = {
+        uid: userDoc.uid,
+        subjectList: userDoc.subjectList.map((s) => ({
+            id: s.id,
+            name: s.name,
+            colorCode: new ColorCode(s.colorCode),
+        })),
+    };
+    return user;
+};
+
 class FirestoreClient {
     private async existsUserData(uid: User["uid"]): Promise<boolean> {
         const snapshot = await getDoc(doc(firebaseClient.db, TABLES.USER, uid));
@@ -41,7 +54,9 @@ class FirestoreClient {
         if (!snapshot.exists()) {
             throw new Error("now found user!");
         }
-        return snapshot.data() as UserDoc;
+        const userDoc: UserDoc = snapshot.data() as UserDoc;
+        const user = convUser(userDoc);
+        return user;
     }
 
     async ifNotExistsCreateNewUser(uid: User["uid"]) {
