@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { ColorCode } from "../util/ColorCode";
+import { WorkDuration } from "../util/WorkDuration";
 
 export type Subject = {
     id: number;
@@ -7,9 +8,17 @@ export type Subject = {
     colorCode: ColorCode;
 };
 
+export type WorkRecord = {
+    id: number;
+    memo: string;
+    subjectId: number;
+    workDuration: WorkDuration;
+};
+
 export type User = {
     uid: string;
     subjectList: Subject[];
+    workRecordList: WorkRecord[];
 };
 
 export const userState = atom<User>({
@@ -17,5 +26,6 @@ export const userState = atom<User>({
     default: {
         uid: "",
         subjectList: [],
+        workRecordList: [],
     },
 });

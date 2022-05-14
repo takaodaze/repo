@@ -5,7 +5,7 @@ export type WorkDuration = {
 
 export const fillZeroTwoNumber = (n: number) => (n < 10 ? `0${n}` : n);
 
-const convWorkDurationToMinute = (s: WorkDuration) => {
+export const convWorkDurationToMinute = (s: WorkDuration) => {
     return s.hour * 60 + s.minute;
 };
 const convMinuteToWorkDuration = (m: number): WorkDuration => {

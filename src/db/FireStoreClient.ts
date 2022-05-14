@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { firebaseClient } from "../config/firebase";
-import { Subject, User } from "../store/user";
+import { Subject, User, WorkRecord } from "../store/user";
 import { ColorCode } from "../util/ColorCode";
 
 const TABLES = {
@@ -16,6 +16,7 @@ type SubjectData = {
 type UserDoc = {
     uid: User["uid"];
     subjectList: SubjectData[];
+    workRecordList: WorkRecord[];
 };
 
 const convUserDoc = (user: User): UserDoc => {
@@ -26,6 +27,7 @@ const convUserDoc = (user: User): UserDoc => {
             name: s.name,
             colorCode: s.colorCode.use(),
         })),
+        workRecordList: user.workRecordList,
     };
     return doc;
 };
@@ -38,6 +40,7 @@ const convUser = (userDoc: UserDoc): User => {
             name: s.name,
             colorCode: new ColorCode(s.colorCode),
         })),
+        workRecordList: userDoc.workRecordList,
     };
     return user;
 };
@@ -65,6 +68,7 @@ class FirestoreClient {
             const user: UserDoc = {
                 uid: uid,
                 subjectList: [],
+                workRecordList: [],
             };
             await setDoc(doc(firebaseClient.db, TABLES.USER, uid), user);
         }
