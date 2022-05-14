@@ -1,4 +1,4 @@
-import { firebaseClient } from "../config/firebase";
+import { firebaseClient } from "../../config/firebase";
 import GoogleIconImage from "./google_icon.svg";
 
 export const GoogleLoginButton = () => {
