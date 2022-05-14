@@ -19,6 +19,7 @@ export type WorkRecord = {
 export type User = {
     uid: string;
     subjectList: Subject[];
+    subjectIdMemo: number;
     workRecordList: WorkRecord[];
 };
 
@@ -28,5 +29,6 @@ export const userState = atom<User>({
         uid: "",
         subjectList: [],
         workRecordList: [],
+        subjectIdMemo: 0,
     },
 });

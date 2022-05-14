@@ -41,13 +41,14 @@ export const NewSubjectModal = (props: Props) => {
                         if (subjectName.length === 0) return;
 
                         const newSubject = {
-                            id: user.subjectList.length + 1,
+                            id: user.subjectIdMemo,
                             name: subjectName,
                             colorCode: new ColorCode(colorCode),
                         };
 
                         const newUser = { ...user };
                         newUser.subjectList = [...user.subjectList, newSubject];
+                        newUser.subjectIdMemo += 1;
 
                         setUser(newUser);
                         await firestoreClient.saveUserDate(newUser);

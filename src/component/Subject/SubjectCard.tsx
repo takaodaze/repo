@@ -23,20 +23,22 @@ export const SubjectCard = (props: Props) => {
                 <SubjectIcon colorCode={props.subject.colorCode} />
             </div>
             <div className="font-bold">{props.subject.name}</div>
-            <AiOutlineEdit
-                size={20}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    setIsEditMode(true);
-                }}
-            />
-            <AiOutlineDelete
-                size={20}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    setIsDeleteMode(true);
-                }}
-            />
+            <div className="flex gap-1">
+                <AiOutlineEdit
+                    size={25}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsEditMode(true);
+                    }}
+                />
+                <AiOutlineDelete
+                    size={25}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsDeleteMode(true);
+                    }}
+                />
+            </div>
             {isEditMode && (
                 <EditSubjectModal
                     subjectId={props.subject.id}

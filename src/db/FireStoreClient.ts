@@ -25,6 +25,7 @@ type WorkRecordData = {
 type UserDoc = {
     uid: User["uid"];
     subjectList: SubjectData[];
+    subjectIdMemo: number;
     workRecordList: WorkRecordData[];
 };
 
@@ -36,6 +37,7 @@ const convUserDoc = (user: User): UserDoc => {
             name: s.name,
             colorCode: s.colorCode.use(),
         })),
+        subjectIdMemo: user.subjectIdMemo,
         workRecordList: user.workRecordList.map((w) => ({
             id: w.id,
             subjectId: w.subjectId,
@@ -55,6 +57,7 @@ const convUser = (userDoc: UserDoc): User => {
             name: s.name,
             colorCode: new ColorCode(s.colorCode),
         })),
+        subjectIdMemo: userDoc.subjectIdMemo,
         workRecordList: userDoc.workRecordList.map((w) => ({
             id: w.id,
             subjectId: w.subjectId,
@@ -90,6 +93,7 @@ class FirestoreClient {
                 uid: uid,
                 subjectList: [],
                 workRecordList: [],
+                subjectIdMemo: 0,
             };
             await setDoc(doc(firebaseClient.db, TABLES.USER, uid), user);
         }
