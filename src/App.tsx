@@ -1,6 +1,6 @@
 import { ErrorBoundary } from "./component/functional/ErrorBoundary";
 import { useInitLogin } from "./component/hooks/useInitLogin";
-import { LearningInput } from "./component/LearningInput";
+import { LearningInput } from "./component/WorkInput";
 import { LoginScreen } from "./component/LoginScreen";
 
 export const App = () => {

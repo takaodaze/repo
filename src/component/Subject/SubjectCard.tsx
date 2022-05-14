@@ -1,4 +1,4 @@
-import { Subject } from "../store/subject";
+import { Subject } from "../../store/subject";
 import { SubjectIcon } from "./SubjectIcon";
 
 type Props = {

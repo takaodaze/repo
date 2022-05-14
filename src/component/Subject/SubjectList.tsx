@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { Subject, subjectListState } from "../store/subject";
+import { Subject, subjectListState } from "../../store/subject";
 import { SubjectCard } from "./SubjectCard";
 
 type P = {

@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
-import { fillZeroTwoNumber } from "../util/StudyDuration";
-import { useStudyDurationInput } from "./hooks/useStudyDurationInput";
+import { fillZeroTwoNumber } from "../../util/StudyDuration";
+import { useStudyDurationInput } from "../hooks/useStudyDurationInput";
 
 export const StudyDurationInput = () => {
     const { studyDuration, handleChange, increment, decrement } =

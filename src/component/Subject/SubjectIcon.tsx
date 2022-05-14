@@ -1,4 +1,4 @@
-import { ColorCode } from "../util/ColorCode";
+import { ColorCode } from "../../util/ColorCode";
 
 type Props = {
     colorCode: ColorCode;

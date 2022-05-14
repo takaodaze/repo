@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import { Subject } from "../store/subject";
+import { Subject } from "../../store/subject";
 import { EmptySubjectIcon } from "./EmptySubjectIcon";
-import { SubjectIcon } from "./SubjectIcon";
-import { SubjectList } from "./SubjectList";
+import { SubjectIcon } from "../Subject/SubjectIcon";
+import { SubjectList } from "../Subject/SubjectList";
 
 export const SubjectSelector = () => {
     const [isExpand, setIsExpand] = useState(false);
