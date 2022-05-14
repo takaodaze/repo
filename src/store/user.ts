@@ -13,6 +13,7 @@ export type WorkRecord = {
     memo: string;
     subjectId: number;
     workDuration: WorkDuration;
+    workAt: Date;
 };
 
 export type User = {

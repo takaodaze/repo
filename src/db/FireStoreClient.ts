@@ -1,7 +1,8 @@
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { firebaseClient } from "../config/firebase";
-import { Subject, User, WorkRecord } from "../store/user";
+import { Subject, User } from "../store/user";
 import { ColorCode } from "../util/ColorCode";
+import { WorkDuration } from "../util/WorkDuration";
 
 const TABLES = {
     USER: "user",
@@ -13,10 +14,18 @@ type SubjectData = {
     colorCode: string;
 };
 
+type WorkRecordData = {
+    id: number;
+    memo: string;
+    subjectId: number;
+    workDuration: WorkDuration;
+    workAt: Timestamp;
+};
+
 type UserDoc = {
     uid: User["uid"];
     subjectList: SubjectData[];
-    workRecordList: WorkRecord[];
+    workRecordList: WorkRecordData[];
 };
 
 const convUserDoc = (user: User): UserDoc => {
@@ -27,7 +36,13 @@ const convUserDoc = (user: User): UserDoc => {
             name: s.name,
             colorCode: s.colorCode.use(),
         })),
-        workRecordList: user.workRecordList,
+        workRecordList: user.workRecordList.map((w) => ({
+            id: w.id,
+            subjectId: w.subjectId,
+            memo: w.memo,
+            workDuration: w.workDuration,
+            workAt: Timestamp.fromDate(w.workAt),
+        })),
     };
     return doc;
 };
@@ -40,7 +55,13 @@ const convUser = (userDoc: UserDoc): User => {
             name: s.name,
             colorCode: new ColorCode(s.colorCode),
         })),
-        workRecordList: userDoc.workRecordList,
+        workRecordList: userDoc.workRecordList.map((w) => ({
+            id: w.id,
+            subjectId: w.subjectId,
+            memo: w.memo,
+            workDuration: w.workDuration,
+            workAt: w.workAt.toDate(),
+        })),
     };
     return user;
 };

@@ -29,6 +29,7 @@ export const RegisterButton = () => {
                 subjectId: subject.id,
                 memo: memo,
                 workDuration: workDuration,
+                workAt: new Date(),
             };
             newUser.workRecordList = [...newUser.workRecordList, newWorkRecord];
 
