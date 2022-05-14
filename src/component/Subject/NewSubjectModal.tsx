@@ -16,7 +16,7 @@ export const NewSubjectModal = (props: Props) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex w-96 flex-col space-y-3 rounded-lg bg-white p-4 pb-6"
+                className="flex w-96 flex-col space-y-4 rounded-lg bg-white p-4 pb-6"
             >
                 <div className="flex items-center justify-between">
                     <div className="h-6 w-6" />
@@ -40,7 +40,7 @@ export const NewSubjectModal = (props: Props) => {
                     />
                 </div>
 
-                <button className="rounded-lg bg-green-600 p-1 text-lg font-bold text-white">
+                <button className="rounded-full bg-green-600 p-1 text-lg font-bold text-white">
                     登録
                 </button>
             </div>
