@@ -7,6 +7,7 @@ import { ColorCode } from "../../util/ColorCode";
 type Props = {
     onClose: () => void;
 };
+
 export const NewSubjectModal = (props: Props) => {
     const [colorCode, setColorCode] = useState("#000000");
     const [subjectName, setSubjectName] = useState("");

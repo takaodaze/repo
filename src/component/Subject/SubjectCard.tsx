@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { Subject } from "../../store/user";
+import { DeleteSubjectModal } from "./DeleteSubjectModal";
 import { EditSubjectModal } from "./EditSubjectModal";
 import { SubjectIcon } from "./SubjectIcon";
 
@@ -11,6 +12,7 @@ type Props = {
 
 export const SubjectCard = (props: Props) => {
     const [isEditMode, setIsEditMode] = useState(false);
+    const [isDeleteMode, setIsDeleteMode] = useState(false);
 
     return (
         <div
@@ -28,10 +30,24 @@ export const SubjectCard = (props: Props) => {
                     setIsEditMode(true);
                 }}
             />
+            <AiOutlineDelete
+                size={20}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setIsDeleteMode(true);
+                }}
+            />
             {isEditMode && (
                 <EditSubjectModal
                     subjectId={props.subject.id}
                     onClose={() => setIsEditMode(false)}
+                />
+            )}
+
+            {isDeleteMode && (
+                <DeleteSubjectModal
+                    subjectId={props.subject.id}
+                    onClose={() => setIsDeleteMode(false)}
                 />
             )}
         </div>
