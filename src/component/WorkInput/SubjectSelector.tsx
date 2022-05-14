@@ -20,7 +20,7 @@ export const SubjectSelector = () => {
     return (
         <div className="relative">
             {isExpand && (
-                <div className="absolute bottom-16 w-56">
+                <div className="absolute bottom-16">
                     <SubjectList
                         onClickCard={(sub) => () => {
                             setIsExpand(false);

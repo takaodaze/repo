@@ -17,7 +17,7 @@ export const SubjectCard = (props: Props) => {
     return (
         <div
             onClick={props.onClick}
-            className="flex cursor-pointer items-center justify-between rounded-lg bg-white p-4 shadow-md"
+            className="flex cursor-pointer items-center justify-between space-x-2 rounded-lg bg-white p-4 shadow-md"
         >
             <div className="h-10 w-10 shrink-0">
                 <SubjectIcon colorCode={props.subject.colorCode} />
