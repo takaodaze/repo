@@ -7,14 +7,13 @@ export const NewSubjectButton = () => {
     return (
         <div>
             <div
-                className="flex cursor-pointer justify-between rounded-full bg-white py-2 px-4 font-bold shadow-md"
+                className="flex cursor-pointer items-center justify-between space-x-3 rounded-full bg-white py-2 px-4 font-bold shadow-md"
                 onClick={() => {
                     setEnableModal(true);
                 }}
             >
-                <div>+</div>
+                <div className="text-2xl">+</div>
                 <div>新しい項目を登録する</div>
-                <div> </div>
             </div>
             {enableModal && (
                 <NewSubjectModal onClose={() => setEnableModal(false)} />

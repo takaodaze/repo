@@ -10,8 +10,9 @@ import { Subject } from "../../store/user";
 export const SubjectSelector = () => {
     const [isExpand, setIsExpand] = useState(false);
 
-    const [{ subject }, setWorkInputValue] =
+    const [workInputValue, setWorkInputValue] =
         useRecoilState(workInputValueState);
+
     const setSubject = (subject: Subject) => {
         setWorkInputValue((prev) => ({ ...prev, subject }));
     };
@@ -35,7 +36,7 @@ export const SubjectSelector = () => {
                     onClick={() => setIsExpand((prev) => !prev)}
                 >
                     <div className="font-medium">
-                        {subject == null ? (
+                        {workInputValue.subject == null ? (
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7">
                                     <EmptySubjectIcon />
@@ -46,10 +47,12 @@ export const SubjectSelector = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7">
                                     <SubjectIcon
-                                        colorCode={subject.colorCode}
+                                        colorCode={
+                                            workInputValue.subject.colorCode
+                                        }
                                     />
                                 </div>
-                                <div>{subject.name}</div>
+                                <div>{workInputValue.subject.name}</div>
                             </div>
                         )}
                     </div>
