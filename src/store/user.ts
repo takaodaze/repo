@@ -12,7 +12,10 @@ export type User = {
     subjectList: Subject[];
 };
 
-export const userAtom = atom<User | null>({
-    key: "userAtom",
-    default: null,
+export const userState = atom<User>({
+    key: "userState",
+    default: {
+        uid: "",
+        subjectList: [],
+    },
 });

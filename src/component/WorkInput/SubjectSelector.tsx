@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
-import { Subject } from "../../store/subject";
 import { EmptySubjectIcon } from "./EmptySubjectIcon";
 import { SubjectIcon } from "../Subject/SubjectIcon";
 import { SubjectList } from "../Subject/SubjectList";
+import { useRecoilState } from "recoil";
+import { workInputValueState } from "../../store/workInputValue";
+import { Subject } from "../../store/user";
 
 export const SubjectSelector = () => {
     const [isExpand, setIsExpand] = useState(false);
-    const [selectedSubject, setSelectedSubject] = useState<Subject | null>(
-        null
-    );
+
+    const [{ subject }, setWorkInputValue] =
+        useRecoilState(workInputValueState);
+    const setSubject = (subject: Subject) => {
+        setWorkInputValue((prev) => ({ ...prev, subject }));
+    };
 
     return (
         <div className="relative">
@@ -18,7 +23,7 @@ export const SubjectSelector = () => {
                     <SubjectList
                         onClickCard={(sub) => () => {
                             setIsExpand(false);
-                            setSelectedSubject(sub);
+                            setSubject(sub);
                         }}
                         onClose={() => setIsExpand(false)}
                     />
@@ -30,7 +35,7 @@ export const SubjectSelector = () => {
                     onClick={() => setIsExpand((prev) => !prev)}
                 >
                     <div className="font-medium">
-                        {selectedSubject == null ? (
+                        {subject == null ? (
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7">
                                     <EmptySubjectIcon />
@@ -41,10 +46,10 @@ export const SubjectSelector = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7">
                                     <SubjectIcon
-                                        colorCode={selectedSubject.colorCode}
+                                        colorCode={subject.colorCode}
                                     />
                                 </div>
-                                <div>{selectedSubject.name}</div>
+                                <div>{subject.name}</div>
                             </div>
                         )}
                     </div>

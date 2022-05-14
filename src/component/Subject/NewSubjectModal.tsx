@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
-import { userAtom } from "../../store/user";
+import { userState } from "../../store/user";
 import { ColorCode } from "../../util/ColorCode";
 type Props = {
     onClose: () => void;
@@ -10,7 +10,7 @@ type Props = {
 export const NewSubjectModal = (props: Props) => {
     const [colorCode, setColorCode] = useState("#000000");
     const [subjectName, setSubjectName] = useState("");
-    const [user, setUser] = useRecoilState(userAtom);
+    const [user, setUser] = useRecoilState(userState);
 
     return (
         <div
@@ -33,24 +33,11 @@ export const NewSubjectModal = (props: Props) => {
                     />
                 </div>
 
-                <div className="flex w-full items-center gap-2">
-                    <input
-                        type="color"
-                        className="h-10 w-10 border-0 bg-inherit"
-                        onChange={(e) => setColorCode(e.target.value)}
-                        value={colorCode}
-                    />
-                    <input
-                        type="text"
-                        className="h-10 flex-grow rounded-lg border-2 p-2"
-                        onChange={(e) => setSubjectName(e.target.value)}
-                        value={subjectName}
-                    />
-                </div>
-
-                <button
-                    onClick={async () => {
-                        if (user == null) return null;
+                <form
+                    className="flex w-full flex-col space-y-4"
+                    onSubmit={async (e) => {
+                        e.preventDefault();
+                        if (subjectName.length === 0) return;
 
                         const newSubject = {
                             id: user.subjectList.length + 1,
@@ -66,10 +53,34 @@ export const NewSubjectModal = (props: Props) => {
 
                         props.onClose();
                     }}
-                    className="rounded-full bg-green-600 p-1 text-lg font-bold text-white"
                 >
-                    登録
-                </button>
+                    <div className="flex w-full gap-2">
+                        <input
+                            type="color"
+                            className="h-10 w-10 bg-inherit"
+                            onChange={(e) => setColorCode(e.target.value)}
+                            value={colorCode}
+                        />
+                        <input
+                            type="text"
+                            className="h-10 flex-grow rounded-lg border-2 p-2"
+                            onChange={(e) => {
+                                setSubjectName(e.target.value);
+                            }}
+                            value={subjectName}
+                        />
+                    </div>
+
+                    <button
+                        className={`rounded-full ${
+                            subjectName.length === 0
+                                ? "bg-gray-300"
+                                : "bg-green-600"
+                        } p-1 text-lg font-bold text-white`}
+                    >
+                        登録
+                    </button>
+                </form>
             </div>
         </div>
     );

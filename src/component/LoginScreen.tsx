@@ -1,12 +1,12 @@
 import { useRecoilState } from "recoil";
-import { loginAtom } from "../store/login";
+import { loginState } from "../store/login";
 import { zIndex } from "../zIndex";
 import { GoogleLoginButton } from "./GoogleLoginButton";
 
 export const LoginScreen = () => {
-    const [loginState] = useRecoilState(loginAtom);
+    const [login] = useRecoilState(loginState);
 
-    if (loginState) {
+    if (login) {
         return null;
     }
 

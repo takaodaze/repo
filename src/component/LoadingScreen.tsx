@@ -1,11 +1,11 @@
 import { useRecoilState } from "recoil";
-import { loadingAtom } from "../store/loading";
+import { loadingState } from "../store/loading";
 import { zIndex } from "../zIndex";
 
 export const LoadingScreen = () => {
-    const [state] = useRecoilState(loadingAtom);
+    const [loading] = useRecoilState(loadingState);
 
-    if (!state.active) {
+    if (!loading.active) {
         return null;
     }
 
@@ -16,7 +16,7 @@ export const LoadingScreen = () => {
         >
             <div className="opacity-1 absolute flex items-center space-x-3 rounded-lg bg-white p-5 ">
                 <div className="h-7 w-7 animate-spin rounded-full border-4 border-green-400 border-t-transparent" />
-                <div className="font-bold">{state.message}</div>
+                <div className="font-bold">{loading.message}</div>
             </div>
         </div>
     );

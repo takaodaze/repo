@@ -1,18 +1,18 @@
 import { ChangeEventHandler } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
-import { fillZeroTwoNumber } from "../../util/StudyDuration";
-import { useStudyDurationInput } from "../hooks/useStudyDurationInput";
+import { fillZeroTwoNumber } from "../../util/WorkDuration";
+import { useWorkDurationInput } from "./useWorkDurationInput";
 
-export const StudyDurationInput = () => {
-    const { studyDuration, handleChange, increment, decrement } =
-        useStudyDurationInput();
+export const WorkDurationInput = () => {
+    const { workDuration, handleChange, increment, decrement } =
+        useWorkDurationInput();
 
     return (
         <div className="flex h-full space-x-2">
             <div className="flex">
                 <IncrementalButton onClick={() => increment("hour")} />
                 <TimeInput
-                    value={studyDuration.hour}
+                    value={workDuration.hour}
                     type="h"
                     onChange={handleChange("hour")}
                 />
@@ -22,7 +22,7 @@ export const StudyDurationInput = () => {
             <div className="flex">
                 <IncrementalButton onClick={() => increment("minute")} />
                 <TimeInput
-                    value={studyDuration.minute}
+                    value={workDuration.minute}
                     type="m"
                     onChange={handleChange("minute")}
                 />

@@ -2,25 +2,25 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { firebaseClient } from "../../config/firebase";
 import { firestoreClient } from "../../db/FireStoreClient";
-import { loadingAtom } from "../../store/loading";
-import { loginAtom } from "../../store/login";
-import { userAtom } from "../../store/user";
+import { loadingState } from "../../store/loading";
+import { loginState } from "../../store/login";
+import { userState } from "../../store/user";
 
 export const useInitLogin = () => {
     // 自動ログインに使おう
-    const [, setLoadingState] = useRecoilState(loadingAtom);
-    const [loginState, setLoginState] = useRecoilState(loginAtom);
-    const [, setUserState] = useRecoilState(userAtom);
+    const [, setLoading] = useRecoilState(loadingState);
+    const [login, setLogin] = useRecoilState(loginState);
+    const [, setUser] = useRecoilState(userState);
 
     useEffect(() => {
-        setLoadingState({ active: true, message: "Loading..." });
-    }, [setLoadingState]);
+        setLoading({ active: true, message: "Loading..." });
+    }, [setLoading]);
 
     useEffect(() => {
         firebaseClient.auth.onAuthStateChanged(
             async (e) => {
                 try {
-                    setLoadingState({
+                    setLoading({
                         active: true,
                         message: "Loading...",
                     });
@@ -31,17 +31,17 @@ export const useInitLogin = () => {
                     await firestoreClient.ifNotExistsCreateNewUser(e.uid);
                     const userData = await firestoreClient.getUserData(e.uid);
 
-                    setLoginState(true);
-                    setUserState(userData);
+                    setLogin(true);
+                    setUser(userData);
                 } finally {
-                    setLoadingState({ active: false, message: "" });
+                    setLoading({ active: false, message: "" });
                 }
             },
             (e) => {
                 console.error("auth error", e);
             }
         );
-    }, [setLoadingState, setLoginState, setUserState]);
+    }, [setLoading, setLogin, setUser]);
 
-    return { loginState };
+    return { loginState: login };
 };
