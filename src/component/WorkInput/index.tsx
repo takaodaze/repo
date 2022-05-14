@@ -2,7 +2,7 @@ import { StudyDurationInput } from "./StudyDurationInput";
 import { SubjectSelector } from "./SubjectSelector";
 import { MdSend } from "react-icons/md";
 
-export const LearningInput = () => {
+export const WorkInput = () => {
     return (
         <div className="flex items-center space-x-2 rounded-lg border-2 p-2">
             <SubjectSelector />

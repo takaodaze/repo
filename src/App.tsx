@@ -1,6 +1,6 @@
 import { ErrorBoundary } from "./component/functional/ErrorBoundary";
 import { useInitLogin } from "./component/hooks/useInitLogin";
-import { LearningInput } from "./component/WorkInput";
+import { WorkInput } from "./component/WorkInput";
 import { LoginScreen } from "./component/LoginScreen";
 
 export const App = () => {
@@ -12,7 +12,7 @@ export const App = () => {
         <div className="h-screen w-screen">
             <ErrorBoundary>
                 <div className="flex h-full flex-col justify-end p-3">
-                    <LearningInput />
+                    <WorkInput />
                 </div>
             </ErrorBoundary>
         </div>
