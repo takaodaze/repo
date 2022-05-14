@@ -20,6 +20,7 @@ export const SubjectSelector = () => {
                             setIsExpand(false);
                             setSelectedSubject(sub);
                         }}
+                        onClose={() => setIsExpand(false)}
                     />
                 </div>
             )}
