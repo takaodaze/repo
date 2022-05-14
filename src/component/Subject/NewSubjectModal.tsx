@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
+import { firestoreClient } from "../../db/FireStoreClient";
 import { userAtom } from "../../store/user";
 import { ColorCode } from "../../util/ColorCode";
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 export const NewSubjectModal = (props: Props) => {
     const [colorCode, setColorCode] = useState("#000000");
     const [subjectName, setSubjectName] = useState("");
-    const [, setUser] = useRecoilState(userAtom);
+    const [user, setUser] = useRecoilState(userAtom);
 
     return (
         <div
@@ -48,21 +49,21 @@ export const NewSubjectModal = (props: Props) => {
                 </div>
 
                 <button
-                    onClick={() => {
-                        setUser((p) => {
-                            if (p == null) return null;
-                            return {
-                                ...p,
-                                subjectList: [
-                                    ...p.subjectList,
-                                    {
-                                        id: p.subjectList.length,
-                                        name: subjectName,
-                                        colorCode: new ColorCode(colorCode),
-                                    },
-                                ],
-                            };
-                        });
+                    onClick={async () => {
+                        if (user == null) return null;
+
+                        const newSubject = {
+                            id: user.subjectList.length + 1,
+                            name: subjectName,
+                            colorCode: new ColorCode(colorCode),
+                        };
+
+                        const newUser = { ...user };
+                        newUser.subjectList = [...user.subjectList, newSubject];
+
+                        setUser(newUser);
+                        await firestoreClient.saveUserDate(newUser);
+
                         props.onClose();
                     }}
                     className="rounded-full bg-green-600 p-1 text-lg font-bold text-white"
