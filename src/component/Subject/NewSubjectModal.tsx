@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useRecoilState } from "recoil";
+import { userAtom } from "../../store/user";
+import { ColorCode } from "../../util/ColorCode";
 type Props = {
     onClose: () => void;
 };
 export const NewSubjectModal = (props: Props) => {
-    const [colorCode, setColorCode] = useState("#000");
+    const [colorCode, setColorCode] = useState("#000000");
+    const [subjectName, setSubjectName] = useState("");
+    const [, setUser] = useRecoilState(userAtom);
 
     return (
         <div
@@ -37,10 +42,31 @@ export const NewSubjectModal = (props: Props) => {
                     <input
                         type="text"
                         className="h-10 flex-grow rounded-lg border-2 p-2"
+                        onChange={(e) => setSubjectName(e.target.value)}
+                        value={subjectName}
                     />
                 </div>
 
-                <button className="rounded-full bg-green-600 p-1 text-lg font-bold text-white">
+                <button
+                    onClick={() => {
+                        setUser((p) => {
+                            if (p == null) return null;
+                            return {
+                                ...p,
+                                subjectList: [
+                                    ...p.subjectList,
+                                    {
+                                        id: p.subjectList.length,
+                                        name: subjectName,
+                                        colorCode: new ColorCode(colorCode),
+                                    },
+                                ],
+                            };
+                        });
+                        props.onClose();
+                    }}
+                    className="rounded-full bg-green-600 p-1 text-lg font-bold text-white"
+                >
                     登録
                 </button>
             </div>

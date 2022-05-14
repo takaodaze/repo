@@ -2,13 +2,15 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { firebaseClient } from "../../config/firebase";
 import { firestoreClient } from "../../db/FireStoreClient";
-import { loadingState } from "../../store/loading";
-import { loginStatusState } from "../../store/loginStatus";
+import { loadingAtom } from "../../store/loading";
+import { loginAtom } from "../../store/login";
+import { userAtom } from "../../store/user";
 
 export const useInitLogin = () => {
     // 自動ログインに使おう
-    const [, setLoadingState] = useRecoilState(loadingState);
-    const [loginState, setLoginState] = useRecoilState(loginStatusState);
+    const [, setLoadingState] = useRecoilState(loadingAtom);
+    const [loginState, setLoginState] = useRecoilState(loginAtom);
+    const [, setUserState] = useRecoilState(userAtom);
 
     useEffect(() => {
         setLoadingState({ active: true, message: "Loading..." });
@@ -29,10 +31,8 @@ export const useInitLogin = () => {
                     await firestoreClient.ifNotExistsCreateNewUser(e.uid);
                     const userData = await firestoreClient.getUserData(e.uid);
 
-                    setLoginState({
-                        isLogin: true,
-                        user: userData,
-                    });
+                    setLoginState(true);
+                    setUserState(userData);
                 } finally {
                     setLoadingState({ active: false, message: "" });
                 }
@@ -41,7 +41,7 @@ export const useInitLogin = () => {
                 console.error("auth error", e);
             }
         );
-    }, [setLoadingState, setLoginState]);
+    }, [setLoadingState, setLoginState, setUserState]);
 
     return { loginState };
 };

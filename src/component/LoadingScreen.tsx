@@ -1,9 +1,9 @@
 import { useRecoilState } from "recoil";
-import { loadingState } from "../store/loading";
+import { loadingAtom } from "../store/loading";
 import { zIndex } from "../zIndex";
 
 export const LoadingScreen = () => {
-    const [state] = useRecoilState(loadingState);
+    const [state] = useRecoilState(loadingAtom);
 
     if (!state.active) {
         return null;

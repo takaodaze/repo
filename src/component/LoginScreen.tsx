@@ -1,7 +1,15 @@
+import { useRecoilState } from "recoil";
+import { loginAtom } from "../store/login";
 import { zIndex } from "../zIndex";
 import { GoogleLoginButton } from "./GoogleLoginButton";
 
 export const LoginScreen = () => {
+    const [loginState] = useRecoilState(loginAtom);
+
+    if (loginState) {
+        return null;
+    }
+
     return (
         <div
             className="flex h-screen w-screen items-center justify-center bg-gray-300"

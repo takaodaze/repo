@@ -1,7 +1,6 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { firebaseClient } from "../config/firebase";
-import { User } from "../store/loginStatus";
-import { Subject } from "../store/subject";
+import { Subject, User } from "../store/user";
 import { ColorCode } from "../util/ColorCode";
 
 const TABLES = {

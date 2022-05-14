@@ -4,12 +4,10 @@ import { WorkInput } from "./component/WorkInput";
 import { LoginScreen } from "./component/LoginScreen";
 
 export const App = () => {
-    const { loginState } = useInitLogin();
-
-    if (!loginState.isLogin) return <LoginScreen />;
-
+    useInitLogin();
     return (
         <div className="h-screen w-screen">
+            <LoginScreen />
             <ErrorBoundary>
                 <div className="flex h-full flex-col justify-end p-3">
                     <WorkInput />

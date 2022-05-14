@@ -5,8 +5,8 @@ type Loading = {
     message: string;
 };
 
-export const loadingState = atom<Loading>({
-    key: "loadingState",
+export const loadingAtom = atom<Loading>({
+    key: "loadingAtom",
     default: {
         active: false,
         message: "",
