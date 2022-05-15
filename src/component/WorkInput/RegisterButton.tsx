@@ -25,12 +25,13 @@ export const RegisterButton = () => {
         setUser((user) => {
             const newUser = { ...user };
             const newWorkRecord: WorkRecord = {
-                id: user.workRecordList.length + 1,
+                id: user.workRecordIdMemo,
                 subjectId: subject.id,
                 memo: memo,
                 workDuration: workDuration,
                 workAt: new Date(),
             };
+            newUser.workRecordIdMemo += 1;
             newUser.workRecordList = [...newUser.workRecordList, newWorkRecord];
 
             firestoreClient.saveUserDate(newUser);

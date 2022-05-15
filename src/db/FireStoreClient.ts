@@ -27,6 +27,7 @@ type UserDoc = {
     subjectList: SubjectData[];
     subjectIdMemo: number;
     workRecordList: WorkRecordData[];
+    workRecordIdMemo: number;
 };
 
 const convUserDoc = (user: User): UserDoc => {
@@ -45,6 +46,7 @@ const convUserDoc = (user: User): UserDoc => {
             workDuration: w.workDuration,
             workAt: Timestamp.fromDate(w.workAt),
         })),
+        workRecordIdMemo: user.workRecordIdMemo,
     };
     return doc;
 };
@@ -65,6 +67,7 @@ const convUser = (userDoc: UserDoc): User => {
             workDuration: w.workDuration,
             workAt: w.workAt.toDate(),
         })),
+        workRecordIdMemo: userDoc.workRecordIdMemo,
     };
     return user;
 };
@@ -92,8 +95,9 @@ class FirestoreClient {
             const user: UserDoc = {
                 uid: uid,
                 subjectList: [],
-                workRecordList: [],
                 subjectIdMemo: 0,
+                workRecordList: [],
+                workRecordIdMemo: 0,
             };
             await setDoc(doc(firebaseClient.db, TABLES.USER, uid), user);
         }
