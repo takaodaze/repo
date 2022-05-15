@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { userState, WorkRecord } from "../../store/user";
@@ -14,9 +14,22 @@ export const WorkRecordCard = (props: Props) => {
     const [enableDeleteModal, setEnableDeleteModal] = useState(false);
     const [enableEditModal, setEnableEditModal] = useState(false);
 
+    const [isNewRecord, setIsNewRecord] = useState(false);
+
     const subject = subjectList.find(
         (s) => s.id === props.workRecord.subjectId
     );
+
+    useEffect(() => {
+        console.log("debug");
+    }, []);
+
+    useEffect(() => {
+        setIsNewRecord(true);
+        setTimeout(() => {
+            setIsNewRecord(false);
+        }, 2000);
+    }, [props.workRecord]);
 
     if (subject == null) {
         throw new Error("subject not found");
@@ -28,23 +41,30 @@ export const WorkRecordCard = (props: Props) => {
                 subject={subject}
                 workRecord={props.workRecord}
             />
-            <div className="flex items-center gap-3">
-                <AiOutlineEdit
-                    className="cursor-pointer"
-                    size={25}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setEnableEditModal(true);
-                    }}
-                />
-                <AiOutlineDelete
-                    className="cursor-pointer"
-                    size={25}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setEnableDeleteModal(true);
-                    }}
-                />
+            <div className="flex flex-col items-end justify-between">
+                {isNewRecord ? (
+                    <span className="right-4 top-4 h-4 w-4 animate-ping rounded-lg bg-green-600" />
+                ) : (
+                    <div />
+                )}
+                <div className="flex items-end gap-3">
+                    <AiOutlineEdit
+                        className="cursor-pointer"
+                        size={25}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setEnableEditModal(true);
+                        }}
+                    />
+                    <AiOutlineDelete
+                        className="cursor-pointer"
+                        size={25}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setEnableDeleteModal(true);
+                        }}
+                    />
+                </div>
             </div>
             {enableEditModal && (
                 <EditWorkRecordModal
