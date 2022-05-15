@@ -45,7 +45,7 @@ export const SubjectSelector = () => {
                             </div>
                         ) : (
                             <div className="flex items-center space-x-4">
-                                <div className="h-7 w-7">
+                                <div className="h-7 w-7 flex-shrink-0">
                                     <SubjectIcon
                                         colorCode={
                                             workInputValue.subject.colorCode

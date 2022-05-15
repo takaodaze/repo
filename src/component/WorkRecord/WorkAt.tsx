@@ -1,4 +1,10 @@
+import { AiOutlineCalendar } from "react-icons/ai";
 export const WorkAt = ({ workAt }: { workAt: Date }) => {
-    const display = `記録日時 ${workAt.getFullYear()}/${workAt.getMonth()}/${workAt.getDate()}`;
-    return <div>{display}</div>;
+    const display = `${workAt.getFullYear()}/${workAt.getMonth()}/${workAt.getDate()}`;
+    return (
+        <div className="flex items-center gap-1">
+            <AiOutlineCalendar />
+            <div>{display}</div>
+        </div>
+    );
 };

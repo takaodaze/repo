@@ -1,4 +1,5 @@
 import { fillZeroTwoNumber, WorkDuration } from "../../util/WorkDuration";
+import { GiSandsOfTime } from "react-icons/gi";
 
 export const WorkDurationPart = ({
     workDuration,
@@ -6,9 +7,12 @@ export const WorkDurationPart = ({
     workDuration: WorkDuration;
 }) => {
     return (
-        <div className="flex gap-2">
-            <div>{workDuration.hour}h</div>
-            <div>{fillZeroTwoNumber(workDuration.minute)}m</div>
+        <div className="flex items-center gap-1">
+            <GiSandsOfTime />
+            <div className="flex gap-1">
+                <div>{workDuration.hour}h</div>
+                <div>{fillZeroTwoNumber(workDuration.minute)}m</div>
+            </div>
         </div>
     );
 };
