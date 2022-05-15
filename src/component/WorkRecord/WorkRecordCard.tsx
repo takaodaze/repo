@@ -9,40 +9,56 @@ import { WorkRecordContent } from "./WorkRecordContent";
 type Props = {
     workRecord: WorkRecord;
 };
+
+const equalsToWorkRecord = (a: WorkRecord, b: WorkRecord) => {
+    if (
+        a.id === b.id &&
+        a.memo === b.memo &&
+        a.subjectId === b.subjectId &&
+        a.workAt.getTime() === b.workAt.getTime() &&
+        a.workDuration.hour === b.workDuration.hour &&
+        a.workDuration.minute === b.workDuration.minute
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 export const WorkRecordCard = (props: Props) => {
     const [{ subjectList }] = useRecoilState(userState);
     const [enableDeleteModal, setEnableDeleteModal] = useState(false);
     const [enableEditModal, setEnableEditModal] = useState(false);
 
-    const [isNewRecord, setIsNewRecord] = useState(false);
+    const [firstPropsWorkRecord] = useState(props.workRecord);
+
+    const [updateNow, setUpdateNow] = useState(false);
 
     const subject = subjectList.find(
         (s) => s.id === props.workRecord.subjectId
     );
 
     useEffect(() => {
-        console.log("debug");
-    }, []);
+        if (equalsToWorkRecord(props.workRecord, firstPropsWorkRecord)) return;
 
-    useEffect(() => {
-        setIsNewRecord(true);
+        setUpdateNow(true);
         setTimeout(() => {
-            setIsNewRecord(false);
+            setUpdateNow(false);
         }, 2000);
-    }, [props.workRecord]);
+    }, [firstPropsWorkRecord, props.workRecord]);
 
     if (subject == null) {
         throw new Error("subject not found");
     }
 
     return (
-        <div className="flex rounded-lg border-2 p-3">
+        <div className={`flex rounded-lg border-2 p-3 transition duration-300`}>
             <WorkRecordContent
                 subject={subject}
                 workRecord={props.workRecord}
             />
             <div className="flex flex-col items-end justify-between">
-                {isNewRecord ? (
+                {updateNow ? (
                     <span className="right-4 top-4 h-4 w-4 animate-ping rounded-lg bg-green-600" />
                 ) : (
                     <div />
