@@ -1,7 +1,7 @@
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
-import { userState } from "../../store/user";
+import { User, userState } from "../../store/user";
 
 type Props = {
     subjectId: number;
@@ -17,10 +17,14 @@ export const DeleteSubjectModal = (props: Props) => {
 
     const handleDelete = () => {
         setUser((prev) => {
-            const newUser = {
+            const newUser: User = {
                 ...prev,
+
                 subjectList: prev.subjectList.filter(
                     (s) => s.id !== subject.id
+                ),
+                workRecordList: prev.workRecordList.filter(
+                    (w) => w.subjectId !== subject.id
                 ),
             };
             firestoreClient.saveUserDate(newUser);
