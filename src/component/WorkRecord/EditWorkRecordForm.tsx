@@ -4,6 +4,8 @@ import { GiSandsOfTime } from "react-icons/gi";
 import { useRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
 import { Subject, User, userState, WorkRecord } from "../../store/user";
+import { ColorCode } from "../../util/ColorCode";
+import { SubjectIcon } from "../Subject/SubjectIcon";
 
 const fmtDate = (date: Date) => {
     const yyyy = date.getFullYear();
@@ -27,8 +29,9 @@ type Props = {
 };
 
 export const EditWorkRecordForm = (props: Props) => {
-    const [, setUser] = useRecoilState(userState);
+    const [{ subjectList }, setUser] = useRecoilState(userState);
 
+    const [subjectId, setSubjectId] = useState(props.workRecord.subjectId);
     const [duration, setDuration] = useState(props.workRecord.workDuration);
     const [workAt, setWorkAt] = useState(props.workRecord.workAt);
 
@@ -40,7 +43,8 @@ export const EditWorkRecordForm = (props: Props) => {
 
     const handleEdit = () => {
         const newWorkRecord: WorkRecord = {
-            ...props.workRecord,
+            id: props.workRecord.id,
+            subjectId: subjectId,
             workDuration: duration,
             workAt: workAt,
             memo: memo,
@@ -67,6 +71,32 @@ export const EditWorkRecordForm = (props: Props) => {
             }}
         >
             <div className="flex flex-col gap-2 px-10">
+                <div className="flex items-center gap-1">
+                    <div className="h-4 w-4 flex-shrink-0">
+                        <SubjectIcon
+                            colorCode={
+                                subjectList.find((s) => s.id === subjectId)
+                                    ?.colorCode ?? new ColorCode("#333333")
+                            }
+                        />
+                    </div>
+                    <select
+                        value={subjectId}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            const maybeInt = parseInt(value);
+                            if (isNaN(maybeInt)) return;
+                            setSubjectId(maybeInt);
+                        }}
+                        className="w-full rounded-lg border-2 p-1"
+                    >
+                        {subjectList.map((s, idx) => (
+                            <option key={`subject_option_${idx}`} value={s.id}>
+                                {s.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="flex items-center gap-1">
                     <GiSandsOfTime />
                     <input
