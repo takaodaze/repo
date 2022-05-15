@@ -14,6 +14,7 @@ export const NewSubjectButton = () => {
             >
                 <div className="text-2xl">+</div>
                 <div>新しい項目を登録する</div>
+                <div className="text-2xl"></div>
             </div>
             {enableModal && (
                 <NewSubjectModal onClose={() => setEnableModal(false)} />
