@@ -10,7 +10,7 @@ export const App = () => {
         <div>
             <LoginScreen />
             <ErrorBoundary>
-                <div className="flex flex-col p-3">
+                <div className="flex flex-col gap-6 p-3">
                     <WorkRecordList />
                     <WorkInput />
                 </div>

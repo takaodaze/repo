@@ -18,7 +18,7 @@ export const SubjectSelector = () => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative h-full">
             {isExpand && (
                 <div className="absolute bottom-16">
                     <SubjectList
@@ -30,9 +30,9 @@ export const SubjectSelector = () => {
                     />
                 </div>
             )}
-            <div className="inline-block rounded-full border-2 py-2 px-4">
+            <div className="h-full rounded-full border-2 py-2 px-4">
                 <div
-                    className="flex items-center gap-3"
+                    className="flex h-full items-center gap-3"
                     onClick={() => setIsExpand((prev) => !prev)}
                 >
                     <div className="font-medium">
