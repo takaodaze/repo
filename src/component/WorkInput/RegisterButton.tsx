@@ -1,6 +1,7 @@
 import { MdSend } from "react-icons/md";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
+import { workRecordIdHasBeenAddedNowState } from "../../store/app";
 import { userState, WorkRecord } from "../../store/user";
 import { workInputValueState } from "../../store/workInputValue";
 import { convWorkDurationToMinute } from "../../util/WorkDuration";
@@ -9,11 +10,12 @@ export const RegisterButton = () => {
     const [workInputValue, setWorkInputValue] =
         useRecoilState(workInputValueState);
 
-    const setUser = useSetRecoilState(userState);
+    const setNewRecordId = useSetRecoilState(workRecordIdHasBeenAddedNowState);
+    const [user, setUser] = useRecoilState(userState);
 
     const handleButton = () => {
-        const { subject, memo, workDuration } = workInputValue;
-        if (subject == null) {
+        const { subjectId, memo, workDuration } = workInputValue;
+        if (subjectId == null) {
             window.alert("項目を選択してください");
             return;
         }
@@ -26,7 +28,7 @@ export const RegisterButton = () => {
             const newUser = { ...user };
             const newWorkRecord: WorkRecord = {
                 id: user.workRecordIdMemo,
-                subjectId: subject.id,
+                subjectId: subjectId,
                 memo: memo,
                 workDuration: workDuration,
                 workAt: new Date(),
@@ -37,6 +39,8 @@ export const RegisterButton = () => {
             firestoreClient.saveUserDate(newUser);
             return newUser;
         });
+
+        setNewRecordId(user.workRecordIdMemo);
 
         setWorkInputValue((prev) => ({
             ...prev,

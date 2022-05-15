@@ -19,7 +19,7 @@ export const App = () => {
                     }}
                 >
                     <div
-                        className="overflow-y-scroll rounded-lg border-2 p-4"
+                        className="overflow-y-scroll rounded-lg border-2 p-2"
                         style={{
                             gridRowStart: 1,
                             gridRowEnd: 2,

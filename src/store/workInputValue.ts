@@ -1,9 +1,8 @@
 import { atom } from "recoil";
 import { WorkDuration } from "../util/WorkDuration";
-import { Subject } from "./user";
 
 export type WorkInputValue = {
-    subject: Subject | null;
+    subjectId: number | null;
     memo: string;
     workDuration: WorkDuration;
 };
@@ -11,7 +10,7 @@ export type WorkInputValue = {
 export const workInputValueState = atom<WorkInputValue>({
     key: "workInputValueState",
     default: {
-        subject: null,
+        subjectId: null,
         memo: "",
         workDuration: {
             hour: 0,

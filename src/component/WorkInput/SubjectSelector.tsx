@@ -5,17 +5,22 @@ import { SubjectIcon } from "../Subject/SubjectIcon";
 import { SubjectList } from "../Subject/SubjectList";
 import { useRecoilState } from "recoil";
 import { workInputValueState } from "../../store/workInputValue";
-import { Subject } from "../../store/user";
+import { Subject, userState } from "../../store/user";
 
 export const SubjectSelector = () => {
     const [isExpand, setIsExpand] = useState(false);
+    const [{ subjectList }] = useRecoilState(userState);
 
     const [workInputValue, setWorkInputValue] =
         useRecoilState(workInputValueState);
 
     const setSubject = (subject: Subject) => {
-        setWorkInputValue((prev) => ({ ...prev, subject }));
+        setWorkInputValue((prev) => ({ ...prev, subjectId: subject.id }));
     };
+
+    const selectedSubject = subjectList.find(
+        (s) => s.id === workInputValue.subjectId
+    );
 
     return (
         <div className="relative h-full">
@@ -36,7 +41,7 @@ export const SubjectSelector = () => {
                     onClick={() => setIsExpand((prev) => !prev)}
                 >
                     <div className="font-medium">
-                        {workInputValue.subject == null ? (
+                        {selectedSubject == null ? (
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7">
                                     <EmptySubjectIcon />
@@ -47,12 +52,10 @@ export const SubjectSelector = () => {
                             <div className="flex items-center space-x-4">
                                 <div className="h-7 w-7 flex-shrink-0">
                                     <SubjectIcon
-                                        colorCode={
-                                            workInputValue.subject.colorCode
-                                        }
+                                        colorCode={selectedSubject.colorCode}
                                     />
                                 </div>
-                                <div>{workInputValue.subject.name}</div>
+                                <div>{selectedSubject.name}</div>
                             </div>
                         )}
                     </div>
