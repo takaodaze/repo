@@ -106,6 +106,8 @@ export const EditWorkRecordForm = (props: Props) => {
                             const maybeInt = parseInt(value);
                             if (isNaN(maybeInt)) return;
 
+                            if (maybeInt >= 60) return;
+
                             setDuration((prev) => ({
                                 hour: prev.hour,
                                 minute: maybeInt,
