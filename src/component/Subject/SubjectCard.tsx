@@ -23,7 +23,7 @@ export const SubjectCard = (props: Props) => {
                 <SubjectIcon colorCode={props.subject.colorCode} />
             </div>
             <div className="font-bold">{props.subject.name}</div>
-            <div className="flex gap-1">
+            <div className="flex gap-2">
                 <AiOutlineEdit
                     size={25}
                     onClick={(e) => {

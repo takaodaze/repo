@@ -2,6 +2,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
 import { User, userState } from "../../store/user";
+import { SubjectIcon } from "./SubjectIcon";
 
 type Props = {
     subjectId: number;
@@ -47,15 +48,21 @@ export const DeleteSubjectModal = (props: Props) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex w-96 flex-col space-y-4 rounded-lg bg-white p-4 pb-6"
+                className="flex w-96 flex-col items-center space-y-6 rounded-lg bg-white p-4 pb-6"
             >
-                <div className="flex items-center justify-between">
+                <div className="flex w-full items-center justify-between">
                     <div className="h-6 w-6" />
                     <div className="text-lg font-bold">項目を削除</div>
                     <AiOutlineCloseCircle
                         onClick={props.onClose}
                         className="h-6 w-6 cursor-pointer text-inherit"
                     />
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="h-8 w-8">
+                        <SubjectIcon colorCode={subject.colorCode} />
+                    </div>
+                    <div className="font-bold">{subject.name}</div>
                 </div>
                 <form
                     className="flex w-full flex-col space-y-4"
