@@ -3,6 +3,7 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { userState, WorkRecord } from "../../store/user";
 import { DeleteWorkRecordModal } from "./DeleteWorkRecordModal";
+import { EditWorkRecordModal } from "./EditWorkRecordModal";
 import { WorkRecordContent } from "./WorkRecordContent";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 export const WorkRecordCard = (props: Props) => {
     const [{ subjectList }] = useRecoilState(userState);
     const [enableDeleteModal, setEnableDeleteModal] = useState(false);
+    const [enableEditModal, setEnableEditModal] = useState(false);
 
     const subject = subjectList.find(
         (s) => s.id === props.workRecord.subjectId
@@ -32,6 +34,7 @@ export const WorkRecordCard = (props: Props) => {
                     size={25}
                     onClick={(e) => {
                         e.stopPropagation();
+                        setEnableEditModal(true);
                     }}
                 />
                 <AiOutlineDelete
@@ -43,6 +46,13 @@ export const WorkRecordCard = (props: Props) => {
                     }}
                 />
             </div>
+            {enableEditModal && (
+                <EditWorkRecordModal
+                    onClose={() => setEnableEditModal(false)}
+                    subject={subject}
+                    workRecord={props.workRecord}
+                />
+            )}
             {enableDeleteModal && (
                 <DeleteWorkRecordModal
                     onClose={() => setEnableDeleteModal(false)}
