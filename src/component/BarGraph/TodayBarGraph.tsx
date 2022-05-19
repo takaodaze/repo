@@ -1,20 +1,16 @@
+import { useMemo } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "../../store/user";
-import { useCalcUpdateDate } from "../hooks/useCalcUpdateDate";
+import { RepoDate } from "../../util/RepoDate";
 import { BarGraph } from "./BarGraph";
 
 export const TodayBarGraph = () => {
     const [{ workRecordList }] = useRecoilState(userState);
-    const { prevUpdateTiming, nextUpdateTiming } = useCalcUpdateDate();
+
+    const today = useMemo(() => RepoDate.today(), []);
 
     const todayWorkRecordList = workRecordList
-        .filter((workRecord) => {
-            const workAt = workRecord.workAt.getTime();
-            return prevUpdateTiming.getTime() <= workAt &&
-                workAt <= nextUpdateTiming.getTime()
-                ? true
-                : false;
-        })
+        .filter((w) => today.equals(RepoDate.fromDate(w.workAt)))
         .sort((a, b) => b.workAt.getTime() - a.workAt.getTime());
 
     return (
