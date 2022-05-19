@@ -3,6 +3,7 @@ import { useInitLogin } from "./component/hooks/useInitLogin";
 import { WorkInput } from "./component/WorkInput";
 import { LoginScreen } from "./component/LoginScreen";
 import { WorkRecordList } from "./component/WorkRecord/WorkRecordList";
+import { TodayBarGraph } from "./component/BarGraph/TodayBarGraph";
 
 export const App = () => {
     useInitLogin();
@@ -30,14 +31,16 @@ export const App = () => {
                         <WorkRecordList />
                     </div>
                     <div
-                        className="overflow-y-scroll rounded-lg border-2 "
+                        className="overflow-y-scroll rounded-lg border-2 p-2 "
                         style={{
                             gridRowStart: 1,
                             gridRowEnd: 2,
                             gridColumnStart: 2,
                             gridColumnEnd: 3,
                         }}
-                    ></div>
+                    >
+                        <TodayBarGraph />
+                    </div>
                     <div
                         style={{
                             gridRowStart: 2,
