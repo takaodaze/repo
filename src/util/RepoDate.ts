@@ -1,7 +1,5 @@
-import { DATE_UPDATE_HOUR } from "../constant/constant";
+import { DATE_UPDATE_HOUR, MILLSEC_OF_DAY } from "../constant/constant";
 import { UnsignedNumber } from "./UnsignedNumber";
-
-const millSecOfOneDay = 1000 * 60 * 60 * 24;
 
 export class RepoDate {
     year: UnsignedNumber;
@@ -21,7 +19,7 @@ export class RepoDate {
     static fromDate(d: Date) {
         const h = d.getHours();
         if (0 <= h && h < DATE_UPDATE_HOUR) {
-            d.setTime(d.getTime() - millSecOfOneDay);
+            d.setTime(d.getTime() - MILLSEC_OF_DAY);
         }
 
         const year = d.getFullYear();
