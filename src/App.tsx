@@ -4,6 +4,8 @@ import { WorkInput } from "./component/WorkInput";
 import { LoginScreen } from "./component/LoginScreen";
 import { WorkRecordList } from "./component/WorkRecord/WorkRecordList";
 import { TodayBarGraph } from "./component/BarGraph/TodayBarGraph";
+import { ReactNode } from "react";
+import { WeekBarGraph } from "./component/BarGraph/WeekBarGraph";
 
 export const App = () => {
     useInitLogin();
@@ -11,48 +13,80 @@ export const App = () => {
         <div>
             <LoginScreen />
             <ErrorBoundary>
-                <div
-                    className="grid gap-2 p-4"
-                    style={{
-                        gridTemplateRows:
-                            "calc(100vh  - 4rem - 2rem - 0.5rem) 4rem", // calc( 画面全体 - 2行目の高さ -  padding - gap )
-                        gridTemplateColumns: "400px 1fr",
-                    }}
-                >
-                    <div
-                        className="overflow-y-scroll rounded-lg border-2 p-2"
-                        style={{
-                            gridRowStart: 1,
-                            gridRowEnd: 2,
-                            gridColumnStart: 1,
-                            gridColumnEnd: 2,
-                        }}
-                    >
+                <GridLayout>
+                    <TopLeftLayout>
                         <WorkRecordList />
-                    </div>
-                    <div
-                        className="overflow-y-scroll rounded-lg border-2 p-2 "
-                        style={{
-                            gridRowStart: 1,
-                            gridRowEnd: 2,
-                            gridColumnStart: 2,
-                            gridColumnEnd: 3,
-                        }}
-                    >
+                    </TopLeftLayout>
+                    <TopRightLayout>
                         <TodayBarGraph />
-                    </div>
-                    <div
-                        style={{
-                            gridRowStart: 2,
-                            gridRowEnd: 3,
-                            gridColumnStart: 1,
-                            gridColumnEnd: 3,
-                        }}
-                    >
+                        <WeekBarGraph />
+                    </TopRightLayout>
+                    <BottomLayout>
                         <WorkInput />
-                    </div>
-                </div>
+                    </BottomLayout>
+                </GridLayout>
             </ErrorBoundary>
+        </div>
+    );
+};
+
+const GridLayout = ({ children }: { children: ReactNode }) => {
+    return (
+        <div
+            className="grid gap-2 p-4"
+            style={{
+                gridTemplateRows: "calc(100vh  - 4rem - 2rem - 0.5rem) 4rem", // calc( 画面全体 - 2行目の高さ -  padding - gap )
+                gridTemplateColumns: "400px 1fr",
+            }}
+        >
+            {children}
+        </div>
+    );
+};
+
+const TopLeftLayout = ({ children }: { children: ReactNode }) => {
+    return (
+        <div
+            className="overflow-y-scroll rounded-lg border-2 p-2"
+            style={{
+                gridRowStart: 1,
+                gridRowEnd: 2,
+                gridColumnStart: 1,
+                gridColumnEnd: 2,
+            }}
+        >
+            {children}
+        </div>
+    );
+};
+
+const TopRightLayout = ({ children }: { children: ReactNode }) => {
+    return (
+        <div
+            className="overflow-y-scroll rounded-lg border-2 p-2 "
+            style={{
+                gridRowStart: 1,
+                gridRowEnd: 2,
+                gridColumnStart: 2,
+                gridColumnEnd: 3,
+            }}
+        >
+            {children}
+        </div>
+    );
+};
+
+const BottomLayout = ({ children }: { children: ReactNode }) => {
+    return (
+        <div
+            style={{
+                gridRowStart: 2,
+                gridRowEnd: 3,
+                gridColumnStart: 1,
+                gridColumnEnd: 3,
+            }}
+        >
+            {children}
         </div>
     );
 };
