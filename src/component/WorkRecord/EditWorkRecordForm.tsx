@@ -5,22 +5,8 @@ import { useRecoilState } from "recoil";
 import { firestoreClient } from "../../db/FireStoreClient";
 import { Subject, User, userState, WorkRecord } from "../../store/user";
 import { ColorCode } from "../../util/ColorCode";
+import { dateToDateTimeString } from "../../util/dateUtil";
 import { SubjectIcon } from "../Subject/SubjectIcon";
-
-const fmtDate = (date: Date) => {
-    const yyyy = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const MM = month < 10 ? `0${month}` : month;
-    const date_ = date.getDate();
-    const dd = date_ < 10 ? `0${date_}` : date_;
-    const hours = date.getHours();
-    const hh = hours < 10 ? `0${hours}` : hours;
-    const minutes = date.getMinutes();
-    const mm = minutes < 10 ? `0${minutes}` : minutes;
-
-    const fmtString = `${yyyy}-${MM}-${dd}T${hh}:${mm}`;
-    return fmtString;
-};
 
 type Props = {
     workRecord: WorkRecord;
@@ -151,7 +137,7 @@ export const EditWorkRecordForm = (props: Props) => {
                     <input
                         className="flex-grow rounded-lg border-2 p-1"
                         type="datetime-local"
-                        value={fmtDate(workAt)}
+                        value={dateToDateTimeString(workAt)}
                         onChange={(e) => {
                             const date = new Date(e.target.value);
                             setWorkAt(date);

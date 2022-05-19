@@ -1,10 +1,14 @@
 import { FC } from "react";
 import { WorkRecord } from "../../store/user";
 import { BarGraghType, BarGraphStack } from "./BarGraphStack";
+import { EmptyBarGraphStack } from "./EmptyBarGraphStack";
 
 type Props = { type: BarGraghType; workRecordList: WorkRecord[] };
 
 export const BarGraph: FC<Props> = ({ type, workRecordList }) => {
+    if (workRecordList.length === 0) {
+        return <EmptyBarGraphStack type={type} />;
+    }
     return (
         <div
             className={`flex ${type === "vertical" ? "flex-col" : ""}  gap-px`}

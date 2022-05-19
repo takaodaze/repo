@@ -24,15 +24,18 @@ export const RegisterButton = () => {
             return;
         }
 
+        const now = new Date();
         setUser((user) => {
             const newUser = { ...user };
+
             const newWorkRecord: WorkRecord = {
                 id: user.workRecordIdMemo,
                 subjectId: subjectId,
                 memo: memo,
                 workDuration: workDuration,
-                workAt: new Date(),
+                workAt: now,
             };
+
             newUser.workRecordIdMemo += 1;
             newUser.workRecordList = [...newUser.workRecordList, newWorkRecord];
 

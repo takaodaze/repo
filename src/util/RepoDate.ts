@@ -1,16 +1,27 @@
 import { DATE_UPDATE_HOUR, MILLSEC_OF_DAY } from "../constant/constant";
-import { UnsignedNumber } from "./UnsignedNumber";
+import { DateNumber } from "./UnsignedNumber";
+
+export const makeDateTimeString = (
+    year: DateNumber,
+    month: DateNumber,
+    date: DateNumber
+) => {
+    const yyyy = year.value;
+    const MM = month.value < 10 ? `0${month.value}` : month.value;
+    const dd = date.value < 10 ? `0${date.value}` : date.value;
+
+    const mm =
+        DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
+
+    return `${yyyy}-${MM}-${dd}T$${mm}:00`;
+};
 
 export class RepoDate {
-    year: UnsignedNumber;
-    month: UnsignedNumber;
-    date: UnsignedNumber;
+    readonly year: DateNumber;
+    readonly month: DateNumber;
+    readonly date: DateNumber;
 
-    constructor(
-        year: UnsignedNumber,
-        month: UnsignedNumber,
-        date: UnsignedNumber
-    ) {
+    constructor(year: DateNumber, month: DateNumber, date: DateNumber) {
         this.year = year;
         this.month = month;
         this.date = date;
@@ -27,16 +38,36 @@ export class RepoDate {
         const date = d.getDate();
 
         return new RepoDate(
-            new UnsignedNumber(year),
-            new UnsignedNumber(month),
-            new UnsignedNumber(date)
+            new DateNumber(year),
+            new DateNumber(month),
+            new DateNumber(date)
         );
+    }
+
+    static fromMs(ms: number) {
+        const d = new Date(ms);
+        return RepoDate.fromDate(d);
     }
 
     static today() {
         const now = new Date();
         return RepoDate.fromDate(now);
     }
+
+    private toMillsec = () => {
+        const yyyy = this.year.value;
+        const MM =
+            this.month.value < 10 ? `0${this.month.value}` : this.month.value;
+        const dd =
+            this.date.value < 10 ? `0${this.date.value}` : this.date.value;
+
+        const mm =
+            DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
+
+        const dateTimeString = `${yyyy}-${MM}-${dd}T${mm}:00`;
+        const millsecOfThis = Date.parse(dateTimeString);
+        return millsecOfThis;
+    };
 
     equals(repoDate: RepoDate) {
         if (
@@ -48,5 +79,17 @@ export class RepoDate {
         } else {
             return false;
         }
+    }
+
+    prev() {
+        const thisMillsec = this.toMillsec();
+        const millsecOfYesterday = thisMillsec - MILLSEC_OF_DAY;
+        return RepoDate.fromMs(millsecOfYesterday);
+    }
+
+    next() {
+        const thisMillsec = this.toMillsec();
+        const millsecOfYesterday = thisMillsec + MILLSEC_OF_DAY;
+        return RepoDate.fromMs(millsecOfYesterday);
     }
 }
