@@ -1,12 +1,11 @@
 import { AiOutlineCalendar } from "react-icons/ai";
+import { RepoDate } from "../../util/RepoDate";
 export const WorkAt = ({ workAt }: { workAt: Date }) => {
-    const display = `${workAt.getFullYear()}年 ${
-        workAt.getMonth() + 1
-    }月 ${workAt.getDate()}日`;
+    const repoDate = RepoDate.fromDate(workAt);
     return (
         <div className="flex items-center gap-1">
             <AiOutlineCalendar />
-            <div>{display}</div>
+            <div>{repoDate.yyyyMMdd()}</div>
         </div>
     );
 };

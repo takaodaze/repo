@@ -73,11 +73,19 @@ export class RepoDate {
         return `${yyyy}-${MM}-${dd}T$${hh}:00`;
     }
 
-    display() {
+    MMdd() {
         const MM = fillZeroUnderTen(this.month.un.value);
         const dd = fillZeroUnderTen(this.date.un.value);
 
         return `${MM}/${dd}`;
+    }
+
+    yyyyMMdd() {
+        const yyyy = this.year.un.value;
+        const MM = fillZeroUnderTen(this.month.un.value);
+        const dd = fillZeroUnderTen(this.date.un.value);
+
+        return `${yyyy}/${MM}/${dd}`;
     }
 
     equals(repoDate: RepoDate) {

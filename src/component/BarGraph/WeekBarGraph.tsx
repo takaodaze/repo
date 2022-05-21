@@ -31,7 +31,7 @@ export const WeekBarGraph = () => {
                             />
                             <div className="flex items-center gap-1">
                                 <AiOutlineCalendar />
-                                <div className="text-sm">{d.display()}</div>
+                                <div className="text-sm">{d.MMdd()}</div>
                             </div>
                         </div>
                     );
