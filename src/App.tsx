@@ -10,10 +10,20 @@ import { useInitMode } from "./component/hooks/useInitMode";
 import { DarkModeSwitch } from "./component/DarkModeSwitch";
 import "./scroll.css";
 import { classNameForScrollBar } from "./scroll";
+import { DeviceSorryScreen } from "./component/DeviceSorryScreen";
 
 export const App = () => {
     useInitLogin();
     useInitMode();
+
+    if (window.outerWidth < 800) {
+        return (
+            <div className="dark:bg-slate-900 dark:text-gray-200">
+                <DeviceSorryScreen />
+            </div>
+        );
+    }
+
     return (
         <div className="dark:bg-slate-900 dark:text-gray-200">
             <LoginScreen />
