@@ -1,4 +1,4 @@
-import { UnsignedInt } from "./UnsignedInt";
+import { UnsignedInt } from "../util/UnsignedInt";
 
 describe("UnsignedInt class", () => {
     test("new", () => {
