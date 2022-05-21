@@ -21,10 +21,12 @@ export const useInitMode = () => {
         if (mode === "dark") {
             document.documentElement.classList.remove("light");
             document.documentElement.classList.add("dark");
+            document.documentElement.style.background = "rgb(15, 23, 42)";
             localStorage.setItem("theme", "dark");
         } else if (mode === "light") {
             document.documentElement.classList.remove("dark");
             document.documentElement.classList.add("light");
+            document.documentElement.style.background = "rgb(255, 255, 255)";
             localStorage.setItem("theme", "light");
         }
     }, [mode]);
