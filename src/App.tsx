@@ -25,7 +25,7 @@ export const App = () => {
                     </TopLeftLayout>
                     <TopRightLayout>
                         <TodayBarGraph />
-                        <div className="h-4" />
+                        <div className="h-2" />
                         <WeekBarGraph />
                     </TopRightLayout>
                     <BottomLayout>
