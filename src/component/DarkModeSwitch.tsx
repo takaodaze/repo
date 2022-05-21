@@ -18,7 +18,7 @@ export const DarkModeSwitch = () => {
     return (
         <div
             onClick={handleClick}
-            className="flex items-center justify-center rounded-2xl border-2 bg-inherit bg-slate-50 p-3 text-4xl opacity-100 dark:border-slate-800 dark:bg-slate-900"
+            className="flex items-center justify-center rounded-2xl border-2 border-slate-200 bg-slate-50 p-3 text-4xl opacity-100 dark:border-slate-800 dark:bg-slate-900"
         >
             {mode === "dark" ? <MdDarkMode /> : <MdLightMode />}
         </div>
