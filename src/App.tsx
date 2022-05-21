@@ -6,6 +6,8 @@ import { WorkRecordList } from "./component/WorkRecord/WorkRecordList";
 import { TodayBarGraph } from "./component/BarGraph/TodayBarGraph";
 import { ReactNode } from "react";
 import { WeekBarGraph } from "./component/BarGraph/WeekBarGraph";
+import { useInitMode } from "./component/hooks/useInitMode";
+import { DarkModeSwitch } from "./component/DarkModeSwitch";
 
 export const App = () => {
     useInitLogin();
@@ -13,6 +15,7 @@ export const App = () => {
         <div>
             <LoginScreen />
             <ErrorBoundary>
+                <DarkModeSwitch />
                 <GridLayout>
                     <TopLeftLayout>
                         <WorkRecordList />
