@@ -2,10 +2,12 @@ import { useState } from "react";
 import { AiOutlineCalendar, AiOutlineFileText } from "react-icons/ai";
 import { GiSandsOfTime } from "react-icons/gi";
 import { useRecoilState } from "recoil";
+import { DATE_UPDATE_HOUR } from "../../constant/constant";
 import { firestoreClient } from "../../db/FireStoreClient";
 import { Subject, User, userState, WorkRecord } from "../../store/user";
 import { ColorCode } from "../../util/ColorCode";
 import { dateToDateTimeString } from "../../util/dateUtil";
+import { fillZeroUnderTen } from "../../util/fillZero";
 import { SubjectIcon } from "../Subject/SubjectIcon";
 
 type Props = {
@@ -132,17 +134,24 @@ export const EditWorkRecordForm = (props: Props) => {
                     />
                     m
                 </div>
-                <div className="flex items-center gap-1">
-                    <AiOutlineCalendar />
-                    <input
-                        className="flex-grow rounded-lg border-2 bg-inherit p-1 dark:border-slate-600"
-                        type="datetime-local"
-                        value={dateToDateTimeString(workAt)}
-                        onChange={(e) => {
-                            const date = new Date(e.target.value);
-                            setWorkAt(date);
-                        }}
-                    />
+                <div className="flex flex-col">
+                    <div className="flex items-center gap-1">
+                        <AiOutlineCalendar />
+                        <input
+                            className="flex-grow rounded-lg border-2 bg-inherit p-1 dark:border-slate-600"
+                            type="datetime-local"
+                            value={dateToDateTimeString(workAt)}
+                            onChange={(e) => {
+                                const date = new Date(e.target.value);
+                                setWorkAt(date);
+                            }}
+                        />
+                    </div>
+                    <div className="text-right text-xs text-gray-400">
+                        {`Repo は AM${fillZeroUnderTen(
+                            DATE_UPDATE_HOUR
+                        )}:00 が更新時間です`}
+                    </div>
                 </div>
                 <div className="flex items-center gap-1">
                     <AiOutlineFileText />
