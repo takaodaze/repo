@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
-import { fillZeroTwoNumber } from "../../util/WorkDuration";
+import { fillZeroUnderTen } from "../../util/fillZero";
 import { useWorkDurationInput } from "./useWorkDurationInput";
 
 export const WorkDurationInput = () => {
@@ -63,7 +63,7 @@ const TimeInput = ({
         <input
             className="h-full w-6 text-right outline-none"
             onChange={onChange}
-            value={type === "m" ? fillZeroTwoNumber(value) : value}
+            value={type === "m" ? fillZeroUnderTen(value) : value}
         />
         <div className="ml-1">{type}</div>
     </div>

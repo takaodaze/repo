@@ -1,5 +1,6 @@
 import { DATE_UPDATE_HOUR, MILLSEC_OF_DAY } from "../constant/constant";
 import { dd } from "./dd";
+import { fillZeroUnderTen } from "./fillZero";
 import { MM } from "./MM";
 import { yyyy } from "./yyyy";
 
@@ -65,17 +66,18 @@ export class RepoDate {
 
     toDateTimeString() {
         const yyyy = this.year.un.value;
-
-        const _MM = this.month.un.value;
-        const MM = _MM < 10 ? `0${_MM}` : _MM;
-
-        const _dd = this.date.un.value;
-        const dd = _dd < 10 ? `0${_dd}` : _dd;
-
-        const hh =
-            DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
+        const MM = fillZeroUnderTen(this.month.un.value);
+        const dd = fillZeroUnderTen(this.date.un.value);
+        const hh = fillZeroUnderTen(DATE_UPDATE_HOUR);
 
         return `${yyyy}-${MM}-${dd}T$${hh}:00`;
+    }
+
+    display() {
+        const MM = fillZeroUnderTen(this.month.un.value);
+        const dd = fillZeroUnderTen(this.date.un.value);
+
+        return `${MM}/${dd}`;
     }
 
     equals(repoDate: RepoDate) {

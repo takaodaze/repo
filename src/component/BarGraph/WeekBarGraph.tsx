@@ -20,11 +20,13 @@ export const WeekBarGraph = () => {
                         );
 
                     return (
-                        <BarGraph
-                            key={`weekbar_${idx}`}
-                            type="vertical"
-                            workRecordList={dayWorkRecordList}
-                        />
+                        <div key={`weekbar_${idx}`} className="flex flex-col">
+                            <BarGraph
+                                type="vertical"
+                                workRecordList={dayWorkRecordList}
+                            />
+                            <div>{d.toDateTimeString()}</div>
+                        </div>
                     );
                 })}
             </div>

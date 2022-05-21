@@ -70,4 +70,12 @@ describe("RepoDate class test", () => {
         const target = RepoDate.fromDate(now);
         expect(today.equals(target)).toBe(true);
     });
+
+    test("display()", () => {
+        const rd19981222 = new RepoDate(1998, 12, 22);
+        expect(rd19981222.display()).toBe("12/22");
+
+        const rd19980201 = new RepoDate(1998, 2, 1);
+        expect(rd19980201.display()).toBe("02/01");
+    });
 });

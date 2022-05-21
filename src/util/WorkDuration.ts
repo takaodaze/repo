@@ -3,8 +3,6 @@ export type WorkDuration = {
     minute: number;
 };
 
-export const fillZeroTwoNumber = (n: number) => (n < 10 ? `0${n}` : n);
-
 export const convWorkDurationToMinute = (s: WorkDuration) => {
     return s.hour * 60 + s.minute;
 };
