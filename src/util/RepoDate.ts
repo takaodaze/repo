@@ -1,5 +1,5 @@
 import { DATE_UPDATE_HOUR, MILLSEC_OF_DAY } from "../constant/constant";
-import { DateNumber } from "./UnsignedNumber";
+import { DateNumber } from "./UnsignedInt";
 
 export const makeDateTimeString = (
     year: DateNumber,
@@ -21,10 +21,14 @@ export class RepoDate {
     readonly month: DateNumber;
     readonly date: DateNumber;
 
-    constructor(year: DateNumber, month: DateNumber, date: DateNumber) {
-        this.year = year;
-        this.month = month;
-        this.date = date;
+    constructor(year: number, month: number, date: number) {
+        const y = new DateNumber(year);
+        const m = new DateNumber(month);
+        const d = new DateNumber(date);
+
+        this.year = y;
+        this.month = m;
+        this.date = d;
     }
 
     static fromDate(d: Date) {
@@ -39,11 +43,7 @@ export class RepoDate {
         const month = cloneD.getMonth() + 1;
         const date = cloneD.getDate();
 
-        return new RepoDate(
-            new DateNumber(year),
-            new DateNumber(month),
-            new DateNumber(date)
-        );
+        return new RepoDate(year, month, date);
     }
 
     static fromMs(ms: number) {

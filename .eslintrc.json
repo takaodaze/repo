@@ -8,7 +8,11 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:react/recommended",
         "plugin:react/jsx-runtime",
-        "plugin:react-hooks/recommended"
+        "plugin:react-hooks/recommended",
+        "plugin:jest/recommended",
+        "plugin:jest/style",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -18,7 +22,13 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react", "@typescript-eslint"],
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "jest",
+        "jest-dom",
+        "testing-library"
+    ],
     "rules": {},
     "ignorePatterns": ["tailwind.config.js", "postcss.config.js"]
 }
