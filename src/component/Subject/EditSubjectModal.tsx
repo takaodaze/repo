@@ -54,7 +54,7 @@ export const EditSubjectModal = (props: Props) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex w-96 flex-col space-y-4 rounded-lg bg-white p-4 pb-6"
+                className="flex w-96 flex-col space-y-4 rounded-lg bg-white p-4 pb-6 dark:bg-slate-700"
             >
                 <div className="flex items-center justify-between">
                     <div className="h-6 w-6" />
@@ -80,7 +80,7 @@ export const EditSubjectModal = (props: Props) => {
                         />
                         <input
                             type="text"
-                            className="h-10 flex-grow rounded-lg border-2 p-2"
+                            className="h-10 flex-grow rounded-lg border-2 bg-inherit p-2 dark:border-slate-600"
                             onChange={(e) => {
                                 setSubjectName(e.target.value);
                             }}

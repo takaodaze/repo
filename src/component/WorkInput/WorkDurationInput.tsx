@@ -35,7 +35,7 @@ export const WorkDurationInput = () => {
 const IncrementalButton = ({ onClick }: { onClick: () => void }) => (
     <button
         onClick={onClick}
-        className="h-full rounded-l-lg border-2 border-r-0 px-0.5"
+        className="h-full rounded-l-lg border-2 border-r-0 px-0.5 dark:border-slate-700"
     >
         <MdAdd />
     </button>
@@ -44,7 +44,7 @@ const IncrementalButton = ({ onClick }: { onClick: () => void }) => (
 const DecrementalButton = ({ onClick }: { onClick: () => void }) => (
     <button
         onClick={onClick}
-        className="h-full rounded-r-lg border-2 border-l-0 px-0.5"
+        className="h-full rounded-r-lg border-2 border-l-0 px-0.5 dark:border-slate-700"
     >
         <MdRemove />
     </button>
@@ -59,9 +59,9 @@ const TimeInput = ({
     value: number;
     type: "h" | "m";
 }) => (
-    <div className="flex items-center border-2 pl-1 pr-3">
+    <div className="flex items-center border-2 pl-1 pr-3 dark:border-slate-700">
         <input
-            className="h-full w-6 text-right outline-none"
+            className="h-full w-6 bg-inherit text-right outline-none"
             onChange={onChange}
             value={type === "m" ? fillZeroUnderTen(value) : value}
         />

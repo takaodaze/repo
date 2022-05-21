@@ -21,7 +21,7 @@ export const EditWorkRecordModal = (props: Props) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex w-96 flex-col items-center space-y-6 rounded-lg bg-white p-4 pb-6"
+                className="flex w-96 flex-col items-center space-y-6 rounded-lg bg-white p-4 pb-6 dark:bg-slate-700"
             >
                 <div className="flex w-full items-center justify-between">
                     <div className="h-6 w-6" />
