@@ -9,4 +9,8 @@ export class yyyy {
         }
         this.value = n;
     }
+
+    equals(y: yyyy) {
+        return this.value === y.value;
+    }
 }
