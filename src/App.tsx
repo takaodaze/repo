@@ -8,12 +8,14 @@ import { ReactNode } from "react";
 import { WeekBarGraph } from "./component/BarGraph/WeekBarGraph";
 import { useInitMode } from "./component/hooks/useInitMode";
 import { DarkModeSwitch } from "./component/DarkModeSwitch";
+import "./scroll.css";
+import { classNameForScrollBar } from "./scroll";
 
 export const App = () => {
     useInitLogin();
     useInitMode();
     return (
-        <div>
+        <div className="dark:bg-slate-900 dark:text-white">
             <LoginScreen />
             <ErrorBoundary>
                 <DarkModeSwitch />
@@ -52,7 +54,7 @@ const GridLayout = ({ children }: { children: ReactNode }) => {
 const TopLeftLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div
-            className="overflow-y-scroll rounded-lg border-2 p-2"
+            className={`overflow-y-scroll rounded-lg border-2 p-2 dark:border-slate-700 ${classNameForScrollBar}`}
             style={{
                 gridRowStart: 1,
                 gridRowEnd: 2,
@@ -68,7 +70,7 @@ const TopLeftLayout = ({ children }: { children: ReactNode }) => {
 const TopRightLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div
-            className="overflow-y-scroll rounded-lg border-2 p-2 "
+            className={`rounded-lg border-2 p-2 dark:border-slate-700 ${classNameForScrollBar}`}
             style={{
                 gridRowStart: 1,
                 gridRowEnd: 2,
