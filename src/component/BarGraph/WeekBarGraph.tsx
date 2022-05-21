@@ -10,7 +10,7 @@ export const WeekBarGraph = () => {
     const [{ workRecordList }] = useRecoilState(userState);
     const currentWeek = useMemo(() => genCurrentWeekRepoDate(), []);
     return (
-        <div className="flex flex-col gap-2 rounded-lg  border-2 p-2 dark:border-slate-700">
+        <div className="flex flex-col gap-2 overflow-x-scroll  rounded-lg border-2 p-2 dark:border-slate-700">
             <div className="font-bold">直近7日の作業記録</div>
             <div className="flex items-end gap-5">
                 {currentWeek.map((d, idx) => {
