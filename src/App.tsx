@@ -70,7 +70,7 @@ const TopLeftLayout = ({ children }: { children: ReactNode }) => {
 const TopRightLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div
-            className={`rounded-lg  ${classNameForScrollBar}`}
+            className={`overflow-y-scroll rounded-lg ${classNameForScrollBar}`}
             style={{
                 gridRowStart: 1,
                 gridRowEnd: 2,
