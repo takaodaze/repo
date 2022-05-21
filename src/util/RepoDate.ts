@@ -28,14 +28,16 @@ export class RepoDate {
     }
 
     static fromDate(d: Date) {
-        const h = d.getHours();
+        const cloneD = new Date(d.getTime());
+
+        const h = cloneD.getHours();
         if (0 <= h && h < DATE_UPDATE_HOUR) {
-            d.setTime(d.getTime() - MILLSEC_OF_DAY);
+            cloneD.setTime(cloneD.getTime() - MILLSEC_OF_DAY);
         }
 
-        const year = d.getFullYear();
-        const month = d.getMonth() + 1;
-        const date = d.getDate();
+        const year = cloneD.getFullYear();
+        const month = cloneD.getMonth() + 1;
+        const date = cloneD.getDate();
 
         return new RepoDate(
             new DateNumber(year),
@@ -61,10 +63,11 @@ export class RepoDate {
         const dd =
             this.date.value < 10 ? `0${this.date.value}` : this.date.value;
 
-        const mm =
+        const hh =
             DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
 
-        const dateTimeString = `${yyyy}-${MM}-${dd}T${mm}:00`;
+        const dateTimeString = `${yyyy}-${MM}-${dd}T${hh}:00`;
+
         const millsecOfThis = Date.parse(dateTimeString);
         return millsecOfThis;
     };
