@@ -71,11 +71,19 @@ describe("RepoDate class test", () => {
         expect(today.equals(target)).toBe(true);
     });
 
-    test("display()", () => {
+    test("MMdd()", () => {
         const rd19981222 = new RepoDate(1998, 12, 22);
-        expect(rd19981222.display()).toBe("12/22");
+        expect(rd19981222.MMdd()).toBe("12/22");
 
         const rd19980201 = new RepoDate(1998, 2, 1);
-        expect(rd19980201.display()).toBe("02/01");
+        expect(rd19980201.MMdd()).toBe("02/01");
+    });
+
+    test("yyyyMMdd()", () => {
+        const rd19981222 = new RepoDate(1998, 12, 22);
+        expect(rd19981222.yyyyMMdd()).toBe("1998/12/22");
+
+        const rd19980201 = new RepoDate(1998, 2, 1);
+        expect(rd19980201.yyyyMMdd()).toBe("1998/02/01");
     });
 });
