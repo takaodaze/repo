@@ -66,7 +66,7 @@ export const WorkRecordCard = (props: Props) => {
     }
 
     return (
-        <div className={`flex rounded-lg border-2 p-3`}>
+        <div className={`flex rounded-lg border-2 p-3 dark:border-slate-700`}>
             <WorkRecordContent
                 subject={subject}
                 workRecord={props.workRecord}

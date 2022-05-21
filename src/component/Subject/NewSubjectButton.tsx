@@ -7,7 +7,7 @@ export const NewSubjectButton = () => {
     return (
         <div>
             <div
-                className="flex cursor-pointer items-center justify-between space-x-3 rounded-full bg-white py-2 px-4 font-bold shadow-md"
+                className="flex cursor-pointer items-center justify-between space-x-3 rounded-full bg-white py-2 px-4 font-bold shadow-md dark:bg-slate-700"
                 onClick={() => {
                     setEnableModal(true);
                 }}

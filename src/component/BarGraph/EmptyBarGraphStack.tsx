@@ -9,7 +9,7 @@ export const EmptyBarGraphStack = (props: Props) => {
             className={`rounded-sm ${
                 props.type === "vertical" ? "rounded-t-md" : "rounded-l-md"
             } ${props.type === "vertical" ? "rounded-b-md" : "rounded-r-md"}
-                border-2 border-dashed
+                border-2 border-dashed dark:border-slate-700
             `}
             style={{
                 height: props.type === "vertical" ? "60px" : "12px",

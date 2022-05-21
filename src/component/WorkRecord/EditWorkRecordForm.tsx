@@ -74,7 +74,7 @@ export const EditWorkRecordForm = (props: Props) => {
                             if (isNaN(maybeInt)) return;
                             setSubjectId(maybeInt);
                         }}
-                        className="w-full rounded-lg border-2 p-1"
+                        className="w-full rounded-lg border-2  bg-inherit p-1 dark:border-slate-600"
                     >
                         {subjectList.map((s, idx) => (
                             <option key={`subject_option_${idx}`} value={s.id}>
@@ -86,7 +86,7 @@ export const EditWorkRecordForm = (props: Props) => {
                 <div className="flex items-center gap-1">
                     <GiSandsOfTime />
                     <input
-                        className="w-10 rounded-lg border-2 p-1 text-center"
+                        className="w-10 rounded-lg border-2 bg-inherit p-1 text-center dark:border-slate-600"
                         value={duration.hour}
                         onChange={(e) => {
                             const value = e.target.value;
@@ -108,7 +108,7 @@ export const EditWorkRecordForm = (props: Props) => {
                     />
                     h
                     <input
-                        className="w-10 rounded-lg border-2 p-1 text-center"
+                        className="w-10 rounded-lg border-2 bg-inherit p-1 text-center dark:border-slate-600"
                         value={duration.minute}
                         onChange={(e) => {
                             const value = e.target.value;
@@ -135,7 +135,7 @@ export const EditWorkRecordForm = (props: Props) => {
                 <div className="flex items-center gap-1">
                     <AiOutlineCalendar />
                     <input
-                        className="flex-grow rounded-lg border-2 p-1"
+                        className="flex-grow rounded-lg border-2 bg-inherit p-1 dark:border-slate-600"
                         type="datetime-local"
                         value={dateToDateTimeString(workAt)}
                         onChange={(e) => {
@@ -147,7 +147,7 @@ export const EditWorkRecordForm = (props: Props) => {
                 <div className="flex items-center gap-1">
                     <AiOutlineFileText />
                     <input
-                        className="flex-grow rounded-lg border-2 p-1"
+                        className="flex-grow rounded-lg border-2 bg-inherit p-1 dark:border-slate-600"
                         value={memo}
                         onChange={(e) => setMemo(e.target.value)}
                     />

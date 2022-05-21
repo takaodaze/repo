@@ -10,7 +10,7 @@ export const MemoInput = () => {
 
     return (
         <input
-            className="h-full grow rounded-lg border-2 p-3 outline-none"
+            className="h-full grow rounded-lg border-2 bg-inherit p-3 outline-none dark:border-slate-700"
             value={memo}
             onChange={(e) => setMemo(e.target.value)}
             placeholder="学習内容やメモしたいこと"
