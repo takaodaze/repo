@@ -148,9 +148,9 @@ export const EditWorkRecordForm = (props: Props) => {
                         />
                     </div>
                     <div className="text-right text-xs text-gray-400">
-                        {`Repo は AM${fillZeroUnderTen(
+                        {`Repo は am ${fillZeroUnderTen(
                             DATE_UPDATE_HOUR
-                        )}:00 が更新時間です`}
+                        )}:00 が日付の更新時間です`}
                     </div>
                 </div>
                 <div className="flex items-center gap-1">
