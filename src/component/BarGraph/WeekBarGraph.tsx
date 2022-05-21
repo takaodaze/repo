@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { AiOutlineCalendar } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { userState } from "../../store/user";
 import { RepoDate } from "../../util/RepoDate";
@@ -11,7 +12,7 @@ export const WeekBarGraph = () => {
     return (
         <div className="flex flex-col gap-2 rounded-lg  border-2 p-2">
             <div className="font-bold">直近7日の作業記録</div>
-            <div className="flex items-end gap-4">
+            <div className="flex items-end gap-5">
                 {currentWeek.map((d, idx) => {
                     const dayWorkRecordList = workRecordList
                         .filter((w) => d.equals(RepoDate.fromDate(w.workAt)))
@@ -20,12 +21,18 @@ export const WeekBarGraph = () => {
                         );
 
                     return (
-                        <div key={`weekbar_${idx}`} className="flex flex-col">
+                        <div
+                            key={`weekbar_${idx}`}
+                            className="flex flex-col items-center gap-2"
+                        >
                             <BarGraph
                                 type="vertical"
                                 workRecordList={dayWorkRecordList}
                             />
-                            <div>{d.toDateTimeString()}</div>
+                            <div className="flex items-center gap-1">
+                                <AiOutlineCalendar />
+                                <div className="text-sm">{d.display()}</div>
+                            </div>
                         </div>
                     );
                 })}
