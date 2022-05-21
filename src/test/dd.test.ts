@@ -2,8 +2,7 @@ import { dd } from "../util/dd";
 
 describe("dd class test", () => {
     test("valid value", () => {
-        const dd1 = new dd(1);
-        expect(dd1.value).toBe(1);
+        expect(() => new dd(1)).not.toThrow();
         expect(() => new dd(20)).not.toThrow();
         expect(() => new dd(31)).not.toThrow();
     });
@@ -15,5 +14,11 @@ describe("dd class test", () => {
         expect(() => new dd(32)).toThrow();
         expect(() => new dd(32.5)).toThrow();
         expect(() => new dd(100)).toThrow();
+    });
+
+    test("equals()", () => {
+        const _1 = new dd(1);
+        expect(_1.equals(new dd(1))).toBe(true);
+        expect(_1.equals(new dd(2))).toBe(false);
     });
 });

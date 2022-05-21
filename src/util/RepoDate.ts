@@ -1,30 +1,17 @@
 import { DATE_UPDATE_HOUR, MILLSEC_OF_DAY } from "../constant/constant";
-import { DateNumber } from "./UnsignedInt";
-
-export const makeDateTimeString = (
-    year: DateNumber,
-    month: DateNumber,
-    date: DateNumber
-) => {
-    const yyyy = year.value;
-    const MM = month.value < 10 ? `0${month.value}` : month.value;
-    const dd = date.value < 10 ? `0${date.value}` : date.value;
-
-    const mm =
-        DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
-
-    return `${yyyy}-${MM}-${dd}T$${mm}:00`;
-};
+import { dd } from "./dd";
+import { MM } from "./MM";
+import { yyyy } from "./yyyy";
 
 export class RepoDate {
-    readonly year: DateNumber;
-    readonly month: DateNumber;
-    readonly date: DateNumber;
+    readonly year: yyyy;
+    readonly month: MM;
+    readonly date: dd;
 
     constructor(year: number, month: number, date: number) {
-        const y = new DateNumber(year);
-        const m = new DateNumber(month);
-        const d = new DateNumber(date);
+        const y = new yyyy(year);
+        const m = new MM(month);
+        const d = new dd(date);
 
         this.year = y;
         this.month = m;
@@ -57,11 +44,15 @@ export class RepoDate {
     }
 
     private toMillsec = () => {
-        const yyyy = this.year.value;
+        const yyyy = this.year.un.value;
         const MM =
-            this.month.value < 10 ? `0${this.month.value}` : this.month.value;
+            this.month.un.value < 10
+                ? `0${this.month.un.value}`
+                : this.month.un.value;
         const dd =
-            this.date.value < 10 ? `0${this.date.value}` : this.date.value;
+            this.date.un.value < 10
+                ? `0${this.date.un.value}`
+                : this.date.un.value;
 
         const hh =
             DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
@@ -71,6 +62,21 @@ export class RepoDate {
         const millsecOfThis = Date.parse(dateTimeString);
         return millsecOfThis;
     };
+
+    toDateTimeString() {
+        const yyyy = this.year.un.value;
+
+        const _MM = this.month.un.value;
+        const MM = _MM < 10 ? `0${_MM}` : _MM;
+
+        const _dd = this.date.un.value;
+        const dd = _dd < 10 ? `0${_dd}` : _dd;
+
+        const hh =
+            DATE_UPDATE_HOUR < 10 ? `0${DATE_UPDATE_HOUR}` : DATE_UPDATE_HOUR;
+
+        return `${yyyy}-${MM}-${dd}T$${hh}:00`;
+    }
 
     equals(repoDate: RepoDate) {
         if (

@@ -2,8 +2,6 @@ import { MM } from "../util/MM";
 
 describe("MM class test", () => {
     test("valid value", () => {
-        const MM1 = new MM(1);
-        expect(MM1.value).toBe(1);
         expect(() => new MM(1)).not.toThrow();
         expect(() => new MM(12)).not.toThrow();
     });
@@ -16,5 +14,11 @@ describe("MM class test", () => {
         expect(() => new MM(13)).toThrow();
         expect(() => new MM(32.5)).toThrow();
         expect(() => new MM(100)).toThrow();
+    });
+
+    test("equals", () => {
+        const jan = new MM(1);
+        expect(jan.equals(new MM(1))).toBe(true);
+        expect(jan.equals(new MM(2))).toBe(false);
     });
 });
