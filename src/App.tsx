@@ -11,6 +11,7 @@ import { DarkModeSwitch } from "./component/DarkModeSwitch";
 
 export const App = () => {
     useInitLogin();
+    useInitMode();
     return (
         <div>
             <LoginScreen />
