@@ -5,12 +5,16 @@ import { userState } from "../../store/user";
 import { RepoDate } from "../../util/RepoDate";
 import { BarGraph } from "./BarGraph";
 import { genCurrentWeekRepoDate } from "./genCurrentWeekRepoDate";
+import "../../scroll.css";
+import { classNameForScrollBar } from "../../scroll";
 
 export const WeekBarGraph = () => {
     const [{ workRecordList }] = useRecoilState(userState);
     const currentWeek = useMemo(() => genCurrentWeekRepoDate(), []);
     return (
-        <div className="flex flex-col gap-2 overflow-x-scroll  rounded-lg border-2 p-2 dark:border-slate-700">
+        <div
+            className={`flex flex-col gap-2 overflow-x-scroll rounded-lg border-2 p-2 dark:border-slate-700 ${classNameForScrollBar}`}
+        >
             <div className="font-bold">直近7日の作業記録</div>
             <div className="flex items-end gap-5">
                 {currentWeek.map((d, idx) => {
