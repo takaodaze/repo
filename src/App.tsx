@@ -28,13 +28,17 @@ export const App = () => {
         <div className="dark:bg-slate-900 dark:text-gray-200">
             <LoginScreen />
             <ErrorBoundary>
-                <DarkModeSwitch />
                 <GridLayout>
                     <TopLeftLayout>
                         <WorkRecordList />
                     </TopLeftLayout>
                     <TopRightLayout>
-                        <TodayBarGraph />
+                        <div className="flex gap-3">
+                            <div className="flex-grow">
+                                <TodayBarGraph />
+                            </div>
+                            <DarkModeSwitch />
+                        </div>
                         <div className="h-2" />
                         <WeekBarGraph />
                     </TopRightLayout>
