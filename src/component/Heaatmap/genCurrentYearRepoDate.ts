@@ -7,5 +7,5 @@ export const genCurrentYearRepoDate = () => {
         yearTemp.push(temp);
         temp = temp.prev();
     }
-    return yearTemp;
+    return yearTemp.reverse();
 };

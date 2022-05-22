@@ -11,6 +11,7 @@ import { DarkModeSwitch } from "./component/DarkModeSwitch";
 import "./scroll.css";
 import { classNameForScrollBar } from "./scroll";
 import { DeviceSorryScreen } from "./component/DeviceSorryScreen";
+import { Heatmap } from "./component/Heaatmap/Heatmap";
 
 export const App = () => {
     useInitLogin();
@@ -41,6 +42,8 @@ export const App = () => {
                         </div>
                         <div className="h-2" />
                         <WeekBarGraph />
+                        <div className="h-2" />
+                        <Heatmap />
                     </TopRightLayout>
                     <BottomLayout>
                         <WorkInput />
@@ -84,7 +87,7 @@ const TopLeftLayout = ({ children }: { children: ReactNode }) => {
 const TopRightLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div
-            className={`overflow-y-scroll rounded-lg ${classNameForScrollBar}`}
+            className={`overflow-x-scroll overflow-y-scroll ${classNameForScrollBar}`}
             style={{
                 gridRowStart: 1,
                 gridRowEnd: 2,
