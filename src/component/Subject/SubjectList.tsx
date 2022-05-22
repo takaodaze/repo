@@ -21,7 +21,7 @@ export const SubjectList = (p: P) => {
                     onClick={(e) => {
                         e.stopPropagation();
                     }}
-                    className="fixed bottom-24 left-3 flex flex-col gap-2 rounded-md border-2 bg-slate-800 p-3 dark:border-slate-700"
+                    className="fixed bottom-20 left-3 flex flex-col gap-2 rounded-md border-2 bg-gray-200 p-3 dark:border-slate-700 dark:bg-slate-800"
                 >
                     {user?.subjectList?.map((s) => (
                         <SubjectCard

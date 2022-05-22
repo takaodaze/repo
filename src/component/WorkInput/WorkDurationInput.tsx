@@ -1,14 +1,26 @@
 import { ChangeEventHandler } from "react";
-import { MdAdd, MdRemove } from "react-icons/md";
+import {
+    MdAdd,
+    MdOutlineStopCircle,
+    MdOutlineTimer,
+    MdRemove,
+} from "react-icons/md";
 import { fillZeroUnderTen } from "../../util/fillZero";
-import { useWorkDurationInput } from "./useWorkDurationInput";
+import { TimerStatus, useWorkDurationInput } from "./useWorkDurationInput";
 
 export const WorkDurationInput = () => {
-    const { workDuration, handleChange, increment, decrement } =
-        useWorkDurationInput();
+    const {
+        workDuration,
+        handleChange,
+        increment,
+        decrement,
+        handleTimerButton,
+        timerStatus,
+    } = useWorkDurationInput();
 
     return (
         <div className="flex h-full space-x-2">
+            <Timer status={timerStatus} onClick={handleTimerButton} />
             <div className="flex">
                 <IncrementalButton onClick={() => increment("hour")} />
                 <TimeInput
@@ -68,3 +80,20 @@ const TimeInput = ({
         <div className="ml-1">{type}</div>
     </div>
 );
+
+const Timer = ({
+    onClick,
+    status,
+}: {
+    onClick: () => void;
+    status: TimerStatus;
+}) => {
+    return (
+        <button
+            onClick={onClick}
+            className="flex items-center justify-center rounded-xl border-2 p-2 text-xl dark:border-slate-700"
+        >
+            {status === "stop" ? <MdOutlineTimer /> : <MdOutlineStopCircle />}
+        </button>
+    );
+};
