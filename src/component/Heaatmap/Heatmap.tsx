@@ -54,6 +54,7 @@ export const Heatmap = () => {
                         <HeatmapCell
                             key={`heatmap_cell_${idx}`}
                             workMinutes={workMinutes}
+                            idx={idx}
                             workAt={r}
                         />
                     );

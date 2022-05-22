@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { Mode, modeState } from "../../store/mode";
 import { RepoDate } from "../../util/RepoDate";
@@ -17,7 +17,7 @@ export const calcHeatMaplevel = (minutes: number): HeatmapLevel => {
     }
 };
 
-const bg = (mode: Mode, workMinutes: number) => {
+const calcHeatMapLevelColor = (mode: Mode, workMinutes: number) => {
     const level = calcHeatMaplevel(workMinutes);
     if (mode === "dark") {
         switch (level) {
@@ -51,29 +51,30 @@ const bg = (mode: Mode, workMinutes: number) => {
 export type HeatmapLevel = 0 | 1 | 2 | 3 | 4;
 type Props = {
     workMinutes: number;
+    idx: number;
     workAt: RepoDate;
 };
 export const HeatmapCell = (props: Props) => {
     const [mode] = useRecoilState(modeState);
     const [hover, setHover] = useState(false);
 
-    const handleClick = useCallback(() => {
-        console.log(props.workAt.yyyyMMdd(), props.workMinutes);
-    }, [props.workAt, props.workMinutes]);
+    const column = Math.floor(props.idx / 7);
 
     return (
         <div
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={handleClick}
             className={`relative h-4 w-4 rounded-sm`}
             style={{
-                background: bg(mode, props.workMinutes),
+                background: calcHeatMapLevelColor(mode, props.workMinutes),
                 border: "rgba(27, 31, 35, 0.06)",
             }}
         >
             {hover && (
-                <div className="absolute -top-8 z-50 flex w-40 items-center justify-center rounded-md bg-slate-400 px-2 py-1 text-sm text-white ">
+                <div
+                    className={`absolute -top-8 z-50 flex w-40 items-center justify-center rounded-md bg-slate-400 px-2 py-1 text-sm text-white`}
+                    style={{ right: column > 25 ? 0 : undefined }}
+                >
                     {`${props.workAt.yyyyMMdd()}, ${Math.floor(
                         props.workMinutes / 60
                     )}h ${props.workMinutes % 60}m`}
