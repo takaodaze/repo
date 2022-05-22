@@ -12,6 +12,7 @@ import "./scroll.css";
 import { classNameForScrollBar } from "./scroll";
 import { DeviceSorryScreen } from "./component/DeviceSorryScreen";
 import { Heatmap } from "./component/Heaatmap/Heatmap";
+import { zIndex } from "./zIndex";
 
 export const App = () => {
     useInitLogin();
@@ -77,6 +78,7 @@ const TopLeftLayout = ({ children }: { children: ReactNode }) => {
                 gridRowEnd: 2,
                 gridColumnStart: 1,
                 gridColumnEnd: 2,
+                zIndex: zIndex.WorkRecordList,
             }}
         >
             {children}
@@ -108,6 +110,7 @@ const BottomLayout = ({ children }: { children: ReactNode }) => {
                 gridRowEnd: 3,
                 gridColumnStart: 1,
                 gridColumnEnd: 3,
+                zIndex: zIndex.WorkInput,
             }}
         >
             {children}
