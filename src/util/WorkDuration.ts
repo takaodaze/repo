@@ -6,7 +6,7 @@ export type WorkDuration = {
 export const convWorkDurationToMinute = (s: WorkDuration) => {
     return s.hour * 60 + s.minute;
 };
-const convMinuteToWorkDuration = (m: number): WorkDuration => {
+export const convMinuteToWorkDuration = (m: number): WorkDuration => {
     return { hour: Math.floor(m / 60), minute: m % 60 };
 };
 

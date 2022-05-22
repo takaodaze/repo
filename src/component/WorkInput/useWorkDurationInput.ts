@@ -1,7 +1,13 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { workInputValueState } from "../../store/workInputValue";
-import { calcWorkDuration, WorkDuration } from "../../util/WorkDuration";
+import {
+    calcWorkDuration,
+    convMinuteToWorkDuration,
+    WorkDuration,
+} from "../../util/WorkDuration";
+
+export type TimerStatus = "stop" | "run";
 
 const incrementHourStep = 1;
 const incrementMinuteStep = 15;
@@ -12,6 +18,45 @@ export const useWorkDurationInput = () => {
 
     const setWorkDuration = (w: WorkDuration) => {
         setWorkInputValue((prev) => ({ ...prev, workDuration: w }));
+    };
+
+    const [timerStartAt, setTimerStartAt] = useState<null | Date>(null);
+    const timerStatus: TimerStatus = timerStartAt == null ? "stop" : "run";
+
+    useEffect(() => {
+        let iId = -1;
+        if (timerStatus === "run") {
+            iId = window.setInterval(() => {
+                console.log("tick");
+
+                if (timerStatus === "run") {
+                    const diffMs =
+                        new Date().getTime() -
+                        (timerStartAt?.getTime() as number);
+                    const diffMinute = Math.floor(diffMs / 1000 / 60);
+                    const workDuration = convMinuteToWorkDuration(diffMinute);
+                    setWorkInputValue((prev) => ({ ...prev, workDuration }));
+                }
+            }, 10000);
+            console.log("set tick", iId);
+        }
+
+        return () => {
+            console.log("clear tick:", iId);
+            window.clearInterval(iId);
+        };
+    }, [setWorkInputValue, timerStartAt, timerStatus]);
+
+    const handleTimerButton = () => {
+        if (timerStatus === "stop") {
+            setTimerStartAt(new Date());
+            setWorkInputValue((prev) => ({
+                ...prev,
+                workDuration: { hour: 0, minute: 0 },
+            }));
+        } else {
+            setTimerStartAt(null);
+        }
     };
 
     const handleChange =
@@ -100,5 +145,7 @@ export const useWorkDurationInput = () => {
         handleChange,
         increment,
         decrement,
+        handleTimerButton,
+        timerStatus,
     };
 };
