@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useRecoilState } from "recoil";
 import { firebaseClient } from "../../config/firebase";
 import { firestoreClient } from "../../db/FireStoreClient";
@@ -12,7 +12,7 @@ export const useInitLogin = () => {
     const [login, setLogin] = useRecoilState(loginState);
     const [, setUser] = useRecoilState(userState);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setLoading({ active: true, message: "Loading..." });
     }, [setLoading]);
 
