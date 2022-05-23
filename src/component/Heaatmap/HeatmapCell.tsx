@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { Theme, themeState } from "../../store/theme";
 import { RepoDate } from "../../util/RepoDate";
 
-export const calcHeatMaplevel = (minutes: number): HeatmapLevel => {
+export const convMinutesToHeatmapLevel = (minutes: number): HeatmapLevel => {
     if (minutes <= 0) {
         return 0;
     } else if (minutes < 60) {
@@ -17,8 +17,8 @@ export const calcHeatMaplevel = (minutes: number): HeatmapLevel => {
     }
 };
 
-const calcHeatMapLevelColor = (theme: Theme, workMinutes: number) => {
-    const level = calcHeatMaplevel(workMinutes);
+const calcHeatmapLevelColor = (theme: Theme, workMinutes: number) => {
+    const level = convMinutesToHeatmapLevel(workMinutes);
     if (theme === "dark") {
         switch (level) {
             case 0:
@@ -69,7 +69,7 @@ export const HeatmapCell = (props: Props) => {
             onMouseLeave={() => setHover(false)}
             className={`relative h-4 w-4 rounded-sm`}
             style={{
-                background: calcHeatMapLevelColor(theme, props.workMinutes),
+                background: calcHeatmapLevelColor(theme, props.workMinutes),
                 border: "rgba(27, 31, 35, 0.06)",
             }}
         >
