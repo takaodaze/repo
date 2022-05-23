@@ -4,6 +4,25 @@ import { fillZeroUnderTen } from "./fillZero";
 import { MM } from "./MM";
 import { yyyy } from "./yyyy";
 
+const displayDay = (day: number) => {
+    switch (day) {
+        case 0:
+            return "日";
+        case 1:
+            return "月";
+        case 2:
+            return "火";
+        case 3:
+            return "水";
+        case 4:
+            return "木";
+        case 5:
+            return "金";
+        case 6:
+            return "土";
+    }
+};
+
 export class RepoDate {
     readonly year: yyyy;
     readonly month: MM;
@@ -86,6 +105,16 @@ export class RepoDate {
         const dd = fillZeroUnderTen(this.date.un.value);
 
         return `${yyyy}/${MM}/${dd}`;
+    }
+
+    day() {
+        return new Date(this.toMillsec()).getDay();
+    }
+
+    yyyyMMddDay() {
+        const yyyyMMdd = this.yyyyMMdd();
+        const day = displayDay(this.day());
+        return `${yyyyMMdd} (${day})`;
     }
 
     equals(repoDate: RepoDate) {

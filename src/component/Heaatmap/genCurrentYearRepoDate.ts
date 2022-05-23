@@ -7,5 +7,12 @@ export const genCurrentYearRepoDate = () => {
         yearTemp.push(temp);
         temp = temp.prev();
     }
+
+    // 月曜スタートにしたい・・・。
+    while (yearTemp[yearTemp.length - 1].day() !== 1) {
+        yearTemp.push(temp);
+        temp = temp.prev();
+    }
+
     return yearTemp.reverse();
 };

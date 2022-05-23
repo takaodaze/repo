@@ -59,6 +59,9 @@ export const HeatmapCell = (props: Props) => {
     const [hover, setHover] = useState(false);
 
     const column = Math.floor(props.idx / 7);
+    const hoverText =
+        props.workAt.yyyyMMddDay() +
+        ` ${Math.floor(props.workMinutes / 60)}h ${props.workMinutes % 60}m`;
 
     return (
         <div
@@ -72,12 +75,10 @@ export const HeatmapCell = (props: Props) => {
         >
             {hover && (
                 <div
-                    className={`absolute -top-8 z-50 flex w-40 items-center justify-center rounded-md bg-slate-400 px-2 py-1 text-sm text-white`}
+                    className={`absolute -top-8 z-50 flex w-44 items-center justify-center rounded-md bg-slate-400 px-2 py-1 text-center text-sm text-white`}
                     style={{ right: column > 25 ? 0 : undefined }}
                 >
-                    {`${props.workAt.yyyyMMdd()}, ${Math.floor(
-                        props.workMinutes / 60
-                    )}h ${props.workMinutes % 60}m`}
+                    {hoverText}
                 </div>
             )}
         </div>
