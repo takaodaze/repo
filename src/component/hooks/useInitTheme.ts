@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { modeState } from "../../store/mode";
+import { themeState } from "../../store/theme";
 
-export const useInitMode = () => {
-    const [mode, setMode] = useRecoilState(modeState);
+export const useInitTheme = () => {
+    const [mode, setMode] = useRecoilState(themeState);
 
     useEffect(() => {
         if (

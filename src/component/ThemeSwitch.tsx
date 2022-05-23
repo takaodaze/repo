@@ -1,9 +1,9 @@
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { useRecoilState } from "recoil";
-import { modeState } from "../store/mode";
+import { themeState } from "../store/theme";
 
-export const DarkModeSwitch = () => {
-    const [mode, setMode] = useRecoilState(modeState);
+export const ThemeSwitch = () => {
+    const [mode, setMode] = useRecoilState(themeState);
 
     const handleClick = () => {
         setMode((prev) => {

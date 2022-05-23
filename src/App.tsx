@@ -6,8 +6,8 @@ import { WorkRecordList } from "./component/WorkRecord/WorkRecordList";
 import { TodayBarGraph } from "./component/BarGraph/TodayBarGraph";
 import { ReactNode } from "react";
 import { WeekBarGraph } from "./component/BarGraph/WeekBarGraph";
-import { useInitMode } from "./component/hooks/useInitMode";
-import { DarkModeSwitch } from "./component/DarkModeSwitch";
+import { useInitTheme } from "./component/hooks/useInitTheme";
+import { ThemeSwitch } from "./component/ThemeSwitch";
 import "./scroll.css";
 import { classNameForScrollBar } from "./scroll";
 import { DeviceSorryScreen } from "./component/DeviceSorryScreen";
@@ -16,7 +16,7 @@ import { zIndex } from "./zIndex";
 
 export const App = () => {
     useInitLogin();
-    useInitMode();
+    useInitTheme();
 
     if (window.outerWidth < 800) {
         return (
@@ -39,7 +39,7 @@ export const App = () => {
                             <div className="flex-grow">
                                 <TodayBarGraph />
                             </div>
-                            <DarkModeSwitch />
+                            <ThemeSwitch />
                         </div>
                         <div className="h-2" />
                         <WeekBarGraph />
