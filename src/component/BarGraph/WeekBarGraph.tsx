@@ -9,11 +9,16 @@ import "../../scroll.css";
 import { classNameForScrollBar } from "../../scroll";
 
 const CURRENT_BAR_GRAPH_RANGE = "CURRENT_BAR_GRAPH_RANGE";
+const RANGE_LIMIT = 99;
 
 export const WeekBarGraph = () => {
     const maybeRange = parseInt(
         localStorage.getItem(CURRENT_BAR_GRAPH_RANGE) ?? ""
     );
+
+    if (maybeRange > RANGE_LIMIT)
+        localStorage.removeItem(CURRENT_BAR_GRAPH_RANGE);
+
     const [{ workRecordList }] = useRecoilState(userState);
     const [range, setRange] = useState(isNaN(maybeRange) ? 7 : maybeRange);
 
@@ -40,7 +45,7 @@ export const WeekBarGraph = () => {
                         if (isNaN(maybeInt)) {
                             return;
                         }
-                        if (maybeInt > 100) {
+                        if (maybeInt > RANGE_LIMIT) {
                             setRange(99);
                             return;
                         }
