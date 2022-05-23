@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useReducer } from "react";
 import { useRecoilState } from "recoil";
 import { workInputValueState } from "../../store/workInputValue";
 import {
@@ -6,8 +6,7 @@ import {
     convMinuteToWorkDuration,
     WorkDuration,
 } from "../../util/WorkDuration";
-
-export type TimerStatus = "stop" | "run";
+import { initWorkDurationTimerState, timerReducer } from "./timerReducer";
 
 const incrementHourStep = 1;
 const incrementMinuteStep = 15;
@@ -20,42 +19,36 @@ export const useWorkDurationInput = () => {
         setWorkInputValue((prev) => ({ ...prev, workDuration: w }));
     };
 
-    const [timerStartAt, setTimerStartAt] = useState<null | Date>(null);
-    const timerStatus: TimerStatus = timerStartAt == null ? "stop" : "run";
+    const [timerState, dispatch] = useReducer(
+        timerReducer,
+        initWorkDurationTimerState
+    );
 
     useEffect(() => {
         let iId = -1;
-        if (timerStatus === "run") {
+        const { startAt, status } = timerState;
+        if (status === "run" && startAt != null) {
             iId = window.setInterval(() => {
-                console.log("tick");
-
-                if (timerStatus === "run") {
-                    const diffMs =
-                        new Date().getTime() -
-                        (timerStartAt?.getTime() as number);
-                    const diffMinute = Math.floor(diffMs / 1000 / 60);
-                    const workDuration = convMinuteToWorkDuration(diffMinute);
-                    setWorkInputValue((prev) => ({ ...prev, workDuration }));
-                }
+                console.log("running timer...");
+                const diffMs = new Date().getTime() - startAt;
+                const diffMinute = Math.floor(diffMs / 1000 / 60);
+                const workDuration = convMinuteToWorkDuration(diffMinute);
+                setWorkInputValue((prev) => ({ ...prev, workDuration }));
             }, 10000);
-            console.log("set tick", iId);
+            console.log("set new inteval:", iId);
         }
 
         return () => {
-            console.log("clear tick:", iId);
+            console.log("clear interval:", iId);
             window.clearInterval(iId);
         };
-    }, [setWorkInputValue, timerStartAt, timerStatus]);
+    }, [setWorkInputValue, timerState]);
 
     const handleTimerButton = () => {
-        if (timerStatus === "stop") {
-            setTimerStartAt(new Date());
-            setWorkInputValue((prev) => ({
-                ...prev,
-                workDuration: { hour: 0, minute: 0 },
-            }));
+        if (timerState.status === "stop") {
+            dispatch("run");
         } else {
-            setTimerStartAt(null);
+            dispatch("stop");
         }
     };
 
@@ -146,6 +139,6 @@ export const useWorkDurationInput = () => {
         increment,
         decrement,
         handleTimerButton,
-        timerStatus,
+        timerStatus: timerState.status,
     };
 };
