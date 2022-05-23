@@ -40,6 +40,11 @@ export const WeekBarGraph = () => {
                         if (isNaN(maybeInt)) {
                             return;
                         }
+                        if (maybeInt > 100) {
+                            setRange(99);
+                            return;
+                        }
+
                         localStorage.setItem(
                             CURRENT_BAR_GRAPH_RANGE,
                             maybeInt.toString()
