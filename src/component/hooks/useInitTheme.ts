@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { themeState } from "../../store/theme";
 
 export const useInitTheme = () => {
-    const [mode, setMode] = useRecoilState(themeState);
+    const [theme, setTheme] = useRecoilState(themeState);
 
     useEffect(() => {
         if (
@@ -11,23 +11,23 @@ export const useInitTheme = () => {
             (!("theme" in localStorage) &&
                 window.matchMedia("(prefers-color-scheme: dark)").matches)
         ) {
-            setMode("dark");
+            setTheme("dark");
         } else {
-            setMode("light");
+            setTheme("light");
         }
-    }, [setMode]);
+    }, [setTheme]);
 
     useEffect(() => {
-        if (mode === "dark") {
+        if (theme === "dark") {
             document.documentElement.classList.remove("light");
             document.documentElement.classList.add("dark");
             document.documentElement.style.background = "rgb(15, 23, 42)";
             localStorage.setItem("theme", "dark");
-        } else if (mode === "light") {
+        } else if (theme === "light") {
             document.documentElement.classList.remove("dark");
             document.documentElement.classList.add("light");
             document.documentElement.style.background = "rgb(255, 255, 255)";
             localStorage.setItem("theme", "light");
         }
-    }, [mode]);
+    }, [theme]);
 };

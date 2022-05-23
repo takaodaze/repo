@@ -3,10 +3,10 @@ import { useRecoilState } from "recoil";
 import { themeState } from "../store/theme";
 
 export const ThemeSwitch = () => {
-    const [mode, setMode] = useRecoilState(themeState);
+    const [theme, setTheme] = useRecoilState(themeState);
 
     const handleClick = () => {
-        setMode((prev) => {
+        setTheme((prev) => {
             if (prev === "dark") {
                 return "light";
             } else if (prev === "light") {
@@ -20,7 +20,7 @@ export const ThemeSwitch = () => {
             onClick={handleClick}
             className="flex cursor-pointer items-center justify-center rounded-2xl border-2 border-slate-200 bg-slate-50 p-3 text-4xl opacity-100 dark:border-slate-800 dark:bg-slate-900"
         >
-            {mode === "dark" ? <MdDarkMode /> : <MdLightMode />}
+            {theme === "dark" ? <MdDarkMode /> : <MdLightMode />}
         </div>
     );
 };
