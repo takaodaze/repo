@@ -8,9 +8,14 @@ import { genCurrentRepoDate } from "./genCurrenRepoDate";
 import "../../scroll.css";
 import { classNameForScrollBar } from "../../scroll";
 
+const CURRENT_BAR_GRAPH_RANGE = "CURRENT_BAR_GRAPH_RANGE";
+
 export const WeekBarGraph = () => {
+    const maybeRange = parseInt(
+        localStorage.getItem(CURRENT_BAR_GRAPH_RANGE) ?? ""
+    );
     const [{ workRecordList }] = useRecoilState(userState);
-    const [range, setRange] = useState(7);
+    const [range, setRange] = useState(isNaN(maybeRange) ? 7 : maybeRange);
 
     const currentWeek = useMemo(() => genCurrentRepoDate(range), [range]);
     return (
@@ -35,6 +40,10 @@ export const WeekBarGraph = () => {
                         if (isNaN(maybeInt)) {
                             return;
                         }
+                        localStorage.setItem(
+                            CURRENT_BAR_GRAPH_RANGE,
+                            maybeInt.toString()
+                        );
                         setRange(maybeInt);
                     }}
                 />
