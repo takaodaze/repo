@@ -8,7 +8,7 @@ type Loading = {
 export const loadingState = atom<Loading>({
     key: "loadingState",
     default: {
-        active: true,
-        message: "Loading...",
+        active: false,
+        message: "",
     },
 });
