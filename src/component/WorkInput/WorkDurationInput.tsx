@@ -6,7 +6,8 @@ import {
     MdRemove,
 } from "react-icons/md";
 import { fillZeroUnderTen } from "../../util/fillZero";
-import { TimerStatus, useWorkDurationInput } from "./useWorkDurationInput";
+import { WorkDurationTimerStatus } from "./timerReducer";
+import { useWorkDurationInput } from "./useWorkDurationInput";
 
 export const WorkDurationInput = () => {
     const {
@@ -86,7 +87,7 @@ const Timer = ({
     status,
 }: {
     onClick: () => void;
-    status: TimerStatus;
+    status: WorkDurationTimerStatus;
 }) => {
     return (
         <button

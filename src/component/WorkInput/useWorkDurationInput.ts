@@ -6,7 +6,7 @@ import {
     convMinuteToWorkDuration,
     WorkDuration,
 } from "../../util/WorkDuration";
-import { initWorkDurationTimerState, timerReducer } from "./timerReducer";
+import { initTimerState, timerReducer } from "./timerReducer";
 
 const incrementHourStep = 1;
 const incrementMinuteStep = 15;
@@ -19,10 +19,7 @@ export const useWorkDurationInput = () => {
         setWorkInputValue((prev) => ({ ...prev, workDuration: w }));
     };
 
-    const [timerState, dispatch] = useReducer(
-        timerReducer,
-        initWorkDurationTimerState
-    );
+    const [timerState, dispatch] = useReducer(timerReducer, initTimerState);
 
     useEffect(() => {
         let iId = -1;

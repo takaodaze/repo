@@ -1,12 +1,14 @@
 import { Reducer } from "react";
 
-export const initWorkDurationTimerState: WorkDurationTimerState = {
+export const initTimerState: WorkDurationTimerState = {
     startAt: null,
     status: "stop",
 };
 
+export type WorkDurationTimerStatus = "run" | "stop";
+
 type WorkDurationTimerState = {
-    status: "run" | "stop";
+    status: WorkDurationTimerStatus;
     startAt: number | null;
 };
 
