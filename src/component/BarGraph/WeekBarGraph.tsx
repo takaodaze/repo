@@ -1,21 +1,45 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { userState } from "../../store/user";
 import { RepoDate } from "../../util/RepoDate";
 import { BarGraph } from "./BarGraph";
-import { genCurrentWeekRepoDate } from "./genCurrentWeekRepoDate";
+import { genCurrentRepoDate } from "./genCurrenRepoDate";
 import "../../scroll.css";
 import { classNameForScrollBar } from "../../scroll";
 
 export const WeekBarGraph = () => {
     const [{ workRecordList }] = useRecoilState(userState);
-    const currentWeek = useMemo(() => genCurrentWeekRepoDate(), []);
+    const [range, setRange] = useState(7);
+
+    const currentWeek = useMemo(() => genCurrentRepoDate(range), [range]);
     return (
         <div
             className={`flex flex-col gap-2 overflow-x-scroll rounded-lg border-2 p-2 dark:border-slate-700 ${classNameForScrollBar}`}
         >
-            <div className="font-bold">直近7日の作業記録</div>
+            <div className="font-bold">
+                直近
+                <input
+                    type="text"
+                    value={range}
+                    className="mx-1 w-12 rounded-lg border bg-inherit px-2 text-center font-bold dark:border-slate-700"
+                    onChange={(e) => {
+                        const value = e.target.value;
+
+                        if (value.length === 0) {
+                            setRange(0);
+                            return;
+                        }
+
+                        const maybeInt = parseInt(value);
+                        if (isNaN(maybeInt)) {
+                            return;
+                        }
+                        setRange(maybeInt);
+                    }}
+                />
+                日の作業記録
+            </div>
             <div className="flex items-end gap-5">
                 {currentWeek.map((d, idx) => {
                     const dayWorkRecordList = workRecordList
@@ -35,7 +59,7 @@ export const WeekBarGraph = () => {
                             />
                             <div className="flex items-center gap-1 ">
                                 <AiOutlineCalendar />
-                                <div className="text-sm">{d.MMdd()}</div>
+                                <div className="text-sm">{d.MMddDay()}</div>
                             </div>
                         </div>
                     );

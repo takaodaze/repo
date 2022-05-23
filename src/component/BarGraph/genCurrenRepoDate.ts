@@ -1,9 +1,9 @@
 import { RepoDate } from "../../util/RepoDate";
 
-export const genCurrentWeekRepoDate = () => {
+export const genCurrentRepoDate = (n: number) => {
     let temp = RepoDate.today();
     const weekTemp = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < n; i++) {
         weekTemp.push(temp);
         temp = temp.prev();
     }

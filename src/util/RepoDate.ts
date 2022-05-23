@@ -111,10 +111,16 @@ export class RepoDate {
         return new Date(this.toMillsec()).getDay();
     }
 
+    MMddDay() {
+        const MMdd = this.MMdd();
+        const day = displayDay(this.day());
+        return `${MMdd} ${day}`;
+    }
+
     yyyyMMddDay() {
         const yyyyMMdd = this.yyyyMMdd();
         const day = displayDay(this.day());
-        return `${yyyyMMdd} (${day})`;
+        return `${yyyyMMdd} ${day}`;
     }
 
     equals(repoDate: RepoDate) {
