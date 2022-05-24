@@ -3,9 +3,13 @@ import { WorkRecord } from "../../store/user";
 import { BarGraghType, BarGraphStack } from "./BarGraphStack";
 import { EmptyBarGraphStack } from "./EmptyBarGraphStack";
 
-type Props = { type: BarGraghType; workRecordList: WorkRecord[] };
+type Props = {
+    type: BarGraghType;
+    workRecordList: WorkRecord[];
+    animate?: boolean;
+};
 
-export const BarGraph: FC<Props> = ({ type, workRecordList }) => {
+export const BarGraph: FC<Props> = ({ animate, type, workRecordList }) => {
     if (workRecordList.length === 0) {
         return <EmptyBarGraphStack type={type} />;
     }
@@ -20,6 +24,7 @@ export const BarGraph: FC<Props> = ({ type, workRecordList }) => {
                     isBottom={idx === workRecordList.length - 1}
                     workRecord={workRecord}
                     type={type}
+                    animate={animate}
                 />
             ))}
         </div>
