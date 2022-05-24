@@ -39,7 +39,11 @@ export const TodayBarGraph = () => {
                     h
                 </div>
                 <div>
-                    <Countup num={totalWorkMinutes % 60} interval={100} />m
+                    <Countup
+                        num={totalWorkMinutes % 60}
+                        interval={1000 * (1 / (totalWorkMinutes % 60))}
+                    />
+                    m
                 </div>
             </div>
         </div>

@@ -10,9 +10,15 @@ export const Countup = (props: Props) => {
     const [initWait, setInitWait] = useState(true);
 
     useEffect(() => {
+        if (props.num < cnt) {
+            setCnt(0);
+        }
+    }, [cnt, props.num]);
+
+    useEffect(() => {
         setTimeout(() => {
             setInitWait(false);
-        }, 1000);
+        }, 700);
     }, []);
 
     useEffect(() => {
