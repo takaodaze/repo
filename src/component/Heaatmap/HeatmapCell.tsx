@@ -3,14 +3,15 @@ import { useRecoilState } from "recoil";
 import { Theme, themeState } from "../../store/theme";
 import { RepoDate } from "../../util/RepoDate";
 
+const h = 60;
 export const convMinutesToHeatmapLevel = (minutes: number): HeatmapLevel => {
     if (minutes <= 0) {
         return 0;
-    } else if (minutes < 60) {
+    } else if (minutes < 1.5 * h) {
         return 1;
-    } else if (minutes < 120) {
+    } else if (minutes < 3 * h) {
         return 2;
-    } else if (minutes < 180) {
+    } else if (minutes < 4.5 * h) {
         return 3;
     } else {
         return 4;
