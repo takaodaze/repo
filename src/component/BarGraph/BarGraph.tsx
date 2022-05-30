@@ -19,7 +19,7 @@ export const BarGraph: FC<Props> = ({ animate, type, workRecordList }) => {
         >
             {workRecordList.map((workRecord, idx) => (
                 <BarGraphStack
-                    key={`today-stack-part-${idx}`}
+                    key={`today-stack-part-${workRecord.id}`}
                     isTop={idx === 0}
                     isBottom={idx === workRecordList.length - 1}
                     workRecord={workRecord}
