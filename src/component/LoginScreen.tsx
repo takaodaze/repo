@@ -16,7 +16,7 @@ export const LoginScreen = () => {
             style={{ zIndex: zIndex.LoginModal }}
         >
             <div className="flex h-full w-full">
-                <div className="m-auto rounded-lg bg-white p-5 shadow-lg">
+                <div className="m-auto rounded-lg bg-white p-5 text-black shadow-lg dark:bg-slate-800 dark:text-white">
                     <div className="flex flex-col items-center justify-center space-y-4 p-2">
                         <div className="text-center text-lg font-bold">
                             📜 Repo
