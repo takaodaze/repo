@@ -19,7 +19,7 @@ export const WorkRecordContent = ({
                 <WorkAt workAt={workRecord.workAt} />
             </div>
             <div className="flex items-center gap-1">
-                <AiOutlineFileText className="text-gray-500" />
+                <AiOutlineFileText className="flex-shrink-0 text-gray-500" />
                 <div className="text-gray-500">{workRecord.memo}</div>
             </div>
         </div>
