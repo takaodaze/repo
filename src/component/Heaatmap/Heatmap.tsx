@@ -4,13 +4,14 @@ import { HeatmapCell } from "./HeatmapCell";
 import { MonthListUtil } from "./MonthListUtil";
 import "../../scroll.css";
 import { classNameForScrollBar } from "../../scroll";
-import { useRecoilState } from "recoil";
-import { userState } from "../../store/user";
+import { useRecoilValue } from "recoil";
 import { RepoDate } from "../../util/RepoDate";
 import { convWorkDurationToMinute } from "../../util/WorkDuration";
+import { SubjectFilter } from "./SubjectFilter";
+import { heatmapSubjectfilteredWorkRecord } from "../../store/HeatmapSubjectFilter";
 
 export const Heatmap = () => {
-    const [{ workRecordList }] = useRecoilState(userState);
+    const workRecordList = useRecoilValue(heatmapSubjectfilteredWorkRecord);
 
     const monthList = useMemo(
         () => new MonthListUtil(new Date().getMonth() + 1).listRollYear(),
@@ -23,7 +24,8 @@ export const Heatmap = () => {
         <div
             className={`overflow-x-scroll ${classNameForScrollBar} rounded-lg border-2 p-4 dark:border-slate-700`}
         >
-            <div className="h-12" />
+            <SubjectFilter />
+            <div className="h-16" />
             <div className="flex justify-center">
                 <div className="relative grid w-fit grid-flow-col grid-rows-7 gap-0.5">
                     <div className="absolute -top-12 flex w-full flex-col gap-1">

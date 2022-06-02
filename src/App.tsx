@@ -13,7 +13,6 @@ import { classNameForScrollBar } from "./scroll";
 import { DeviceSorryScreen } from "./component/DeviceSorryScreen";
 import { Heatmap } from "./component/Heaatmap/Heatmap";
 import { zIndex } from "./zIndex";
-
 export const App = () => {
     useInitLogin();
     useInitTheme();
