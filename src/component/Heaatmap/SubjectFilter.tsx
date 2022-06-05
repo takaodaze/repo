@@ -42,7 +42,7 @@ export const SubjectFilter = () => {
                             {s.name}
                         </option>
                     ))}
-                    <option value={-1}></option>
+                    <option value={-1}>全て</option>
                 </select>
             </div>
         </div>
